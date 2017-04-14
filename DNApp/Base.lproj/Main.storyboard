@@ -149,10 +149,10 @@
             </objects>
             <point key="canvasLocation" x="806" y="-604"/>
         </scene>
-        <!--View Controller-->
+        <!--LoginUI View Controller-->
         <scene sceneID="e0A-W5-mtZ">
             <objects>
-                <viewController id="5sD-en-9Xj" sceneMemberID="viewController">
+                <viewController id="5sD-en-9Xj" customClass="LoginUIViewController" customModule="DNApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="I0E-F8-Hf6"/>
                         <viewControllerLayoutGuide type="bottom" id="wDW-0y-54M"/>
@@ -260,6 +260,9 @@
                                                 <real key="value" value="3"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="loginButtonDidTouch:" destination="5sD-en-9Xj" eventType="touchUpInside" id="4OE-wQ-tMY"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -305,6 +308,9 @@
                             <constraint firstItem="t6u-kc-CLn" firstAttribute="centerX" secondItem="et7-GQ-lpI" secondAttribute="centerX" id="gwa-i3-Kzb"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="dialogView" destination="t6u-kc-CLn" id="F3h-ne-I9D"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SjN-BC-CcF" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="u7F-dC-fG1" userLabel="Exit" sceneMemberID="exit"/>
