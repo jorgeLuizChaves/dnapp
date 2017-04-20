@@ -20,6 +20,7 @@
 /* Begin PBXFileReference section */
 		2DFCC22B7A70904DBC0B7057 /* Pods-DNApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DNApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-DNApp/Pods-DNApp.release.xcconfig"; sourceTree = "<group>"; };
 		578FD4D30A744FBB6C13014E /* Pods-DNApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DNApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DNApp/Pods-DNApp.debug.xcconfig"; sourceTree = "<group>"; };
+		853DB04A1EA8CE7600FD82D5 /* playground02.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = playground02.playground; sourceTree = "<group>"; };
 		854EBF5C1EA316BD004F5D51 /* LearnViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LearnViewController.swift; sourceTree = "<group>"; };
 		857F19CC1EA185FC00A53676 /* LoginUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginUIViewController.swift; sourceTree = "<group>"; };
 		857F19CE1EA18C0300A53676 /* playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = playground.playground; sourceTree = "<group>"; };
@@ -84,6 +85,7 @@
 				85C002E41EA0589B003FEB4B /* LaunchScreen.storyboard */,
 				85C002E71EA0589B003FEB4B /* Info.plist */,
 				857F19CE1EA18C0300A53676 /* playground.playground */,
+				853DB04A1EA8CE7600FD82D5 /* playground02.playground */,
 			);
 			path = DNApp;
 			sourceTree = "<group>";
