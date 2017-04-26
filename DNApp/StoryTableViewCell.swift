@@ -23,6 +23,9 @@ class StoryTableViewCell: UITableViewCell {
 
     @IBOutlet weak var commentButton: SpringButton!
     
+    weak var delegate: StoryTableViewCellDelegate?
+
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -38,12 +41,21 @@ class StoryTableViewCell: UITableViewCell {
         upvoteButton.animation = "pop"
         upvoteButton.force = 3
         upvoteButton.animate()
+        delegate?.storyTableViewCellDidTouchUpvote(self, sender: sender)
+
     }
     
     @IBAction func commentButtonDidTouch(_ sender: Any) {
         commentButton.animation = "pop"
         commentButton.force = 3
         commentButton.animate()
+        delegate?.storyTableViewCellDidTouchComment(self, sender: sender)
+
     }
     
+}
+
+protocol StoryTableViewCellDelegate : class {
+    func storyTableViewCellDidTouchUpvote(_ cell: StoryTableViewCell, sender: Any)
+    func storyTableViewCellDidTouchComment(_ cell: StoryTableViewCell, sender: Any)
 }

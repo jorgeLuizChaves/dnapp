@@ -9,7 +9,7 @@
 import UIKit
 import Spring
 
-class StoriesTableViewController: UITableViewController {
+class StoriesTableViewController: UITableViewController, StoryTableViewCellDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +40,7 @@ class StoriesTableViewController: UITableViewController {
         cell.timeLabel.text = "5m"
         cell.upvoteButton.setTitle("59", for: UIControlState.normal)
         cell.commentButton.setTitle("32", for: UIControlState.normal)
-        
+        cell.delegate = self
         return cell
     }
     
@@ -64,6 +64,16 @@ class StoriesTableViewController: UITableViewController {
         
         performSegue(withIdentifier: "menuSegue", sender: self)
         
+    }
+    
+    // MARK: StoryTableViewCellDelegate
+    func storyTableViewCellDidTouchUpvote(_ cell: StoryTableViewCell, sender: Any) {
+        //TODO: Implement Upvote
+    }
+    
+    func storyTableViewCellDidTouchComment(_ cell: StoryTableViewCell, sender: Any) {
+        performSegue(withIdentifier: "commentsSegue", sender: cell)
+
     }
     
     /*

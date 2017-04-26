@@ -10,6 +10,30 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--View Controller-->
+        <scene sceneID="VIS-ao-rYP">
+            <objects>
+                <viewController id="qDP-3a-FAm" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rMA-N4-cag"/>
+                        <viewControllerLayoutGuide type="bottom" id="e72-D7-9b8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EeM-cd-UI2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="2-Comments" translatesAutoresizingMaskIntoConstraints="NO" id="atr-hj-RTw">
+                                <rect key="frame" x="30" y="14" width="320" height="1161"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LYK-hl-JB5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2770" y="-2186"/>
+        </scene>
         <!--Top Stories-->
         <scene sceneID="oTB-8a-AbY">
             <objects>
@@ -143,6 +167,7 @@
                     <connections>
                         <segue destination="TwE-fC-G2z" kind="presentation" identifier="menuSegue" animates="NO" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="qOb-rL-6jx"/>
                         <segue destination="5sD-en-9Xj" kind="presentation" identifier="loginSegue" animates="NO" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="tRY-vo-Q9R"/>
+                        <segue destination="qDP-3a-FAm" kind="show" identifier="commentsSegue" id="LyO-z0-MMs"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="icd-7q-Plo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -708,6 +733,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="2-Comments" width="320" height="1161"/>
         <image name="action-share" width="19" height="27"/>
         <image name="bg-credits" width="280" height="140"/>
         <image name="big-credits" width="47" height="44"/>
