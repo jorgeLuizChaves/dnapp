@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Spring
 
 class StoriesTableViewController: UITableViewController {
 
@@ -30,10 +31,19 @@ class StoriesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "StoryCell") as UITableViewCell!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "StoryCell") as! StoryTableViewCell
         
-        return cell!
+        cell.titleLabel.text = "Learn iOS Design and Xcode"
+        cell.badgeImageView.image = UIImage(named: "badge-apple")
+        cell.profileImageView.image = UIImage(named: "content-avatar-default")
+        cell.authorLabel.text = "Meng To, designer and coderMeng To, designer and coderMeng To, designer and coder Meng To, designer and coder"
+        cell.timeLabel.text = "5m"
+        cell.upvoteButton.setTitle("59", for: UIControlState.normal)
+        cell.commentButton.setTitle("32", for: UIControlState.normal)
+        
+        return cell
     }
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
