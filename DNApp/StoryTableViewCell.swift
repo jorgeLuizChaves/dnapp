@@ -11,6 +11,8 @@ import Spring
 
 class StoryTableViewCell: UITableViewCell {
     
+    let timeZoneFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+    
     
     @IBOutlet weak var badgeImageView: UIImageView!
     
@@ -34,6 +36,27 @@ class StoryTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
+    }
+    
+    func configureWithStory(_ story: AnyObject) {
+        
+        let title = story["title"] as! String
+        let badge = story["badge"] as! String
+        // let userPortraitUrl = story["user_portrait_url"] as! String
+        let userDisplayName = story["user_display_name"] as! String
+        let userJob = story["user_job"] as! String
+        let createdAt = story["created_at"] as! String
+        let voteCount = story["vote_count"] as! Int
+        let commentCount = story["comment_count"] as! Int
+        
+        self.titleLabel.text = title
+        self.badgeImageView.image = UIImage(named: "badge-" + badge)
+        self.profileImageView.image = UIImage(named: "content-avatar-default")
+        self.authorLabel.text = userDisplayName + ", " + userJob
+        self.timeLabel.text = timeAgoSinceDate(date: dateFromString(date: createdAt, format: timeZoneFormat), numericDates: true)
+        
+        self.upvoteButton.setTitle(String(voteCount), for: UIControlState.normal)
+        self.commentButton.setTitle(String(commentCount), for: UIControlState.normal)
     }
     
     

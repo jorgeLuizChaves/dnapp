@@ -27,20 +27,15 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
     // MARK: Table View Functions
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return data.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "StoryCell") as! StoryTableViewCell
         
-        cell.titleLabel.text = "Learn iOS Design and Xcode"
-        cell.badgeImageView.image = UIImage(named: "badge-apple")
-        cell.profileImageView.image = UIImage(named: "content-avatar-default")
-        cell.authorLabel.text = "Meng To, designer and coderMeng To, designer and coderMeng To, designer and coder Meng To, designer and coder"
-        cell.timeLabel.text = "5m"
-        cell.upvoteButton.setTitle("59", for: UIControlState.normal)
-        cell.commentButton.setTitle("32", for: UIControlState.normal)
+        let story = data[indexPath.row]
         cell.delegate = self
+        cell.configureWithStory(story as AnyObject)
         return cell
     }
     
