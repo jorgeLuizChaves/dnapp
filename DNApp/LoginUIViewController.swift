@@ -25,6 +25,14 @@ class LoginUIViewController: UIViewController {
         
     }
     
+    @IBAction func closeButtonDidTouch(_ sender: Any) {
+        
+        dismiss(animated: true, completion: nil)
+        dialogView.animation = "zoomOut"
+        dialogView.animate()
+    }
+    
+    
     private func errorLogin() {
         dialogView.animation = "shake"
         dialogView.animate()
