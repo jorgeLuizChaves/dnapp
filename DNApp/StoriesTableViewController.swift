@@ -71,6 +71,17 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
 
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "commentsSegue" {
+            let toView = segue.destination as! CommentsTableViewController
+            let indexPath = tableView.indexPath(for: sender as! UITableViewCell)!
+            let story = data[indexPath.row] as [String : AnyObject]
+            toView.story = story
+
+
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

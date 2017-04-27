@@ -14,6 +14,7 @@
 		859864F71EAF848900FF063F /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859864F61EAF848900FF063F /* WebViewController.swift */; };
 		85A4C0681EB0F77D00834FA8 /* StoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A4C0671EB0F77D00834FA8 /* StoryTableViewCell.swift */; };
 		85A4C06A1EB1625B00834FA8 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A4C0691EB1625B00834FA8 /* Data.swift */; };
+		85A4C06C1EB1A3A600834FA8 /* CommentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A4C06B1EB1A3A600834FA8 /* CommentsTableViewController.swift */; };
 		85C002DC1EA0589B003FEB4B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C002DB1EA0589B003FEB4B /* AppDelegate.swift */; };
 		85C002E11EA0589B003FEB4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85C002DF1EA0589B003FEB4B /* Main.storyboard */; };
 		85C002E31EA0589B003FEB4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85C002E21EA0589B003FEB4B /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 		859864F61EAF848900FF063F /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		85A4C0671EB0F77D00834FA8 /* StoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryTableViewCell.swift; sourceTree = "<group>"; };
 		85A4C0691EB1625B00834FA8 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		85A4C06B1EB1A3A600834FA8 /* CommentsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsTableViewController.swift; sourceTree = "<group>"; };
 		85C002D81EA0589B003FEB4B /* DNApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DNApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85C002DB1EA0589B003FEB4B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		85C002E01EA0589B003FEB4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 				85A4C0691EB1625B00834FA8 /* Data.swift */,
 				85A4C0671EB0F77D00834FA8 /* StoryTableViewCell.swift */,
 				854EBF5C1EA316BD004F5D51 /* LearnViewController.swift */,
+				85A4C06B1EB1A3A600834FA8 /* CommentsTableViewController.swift */,
 				857F19CC1EA185FC00A53676 /* LoginUIViewController.swift */,
 				859864F41EAF834400FF063F /* MenuViewController.swift */,
 				85C002DF1EA0589B003FEB4B /* Main.storyboard */,
@@ -242,6 +245,7 @@
 				857F19CD1EA185FC00A53676 /* LoginUIViewController.swift in Sources */,
 				85A4C0681EB0F77D00834FA8 /* StoryTableViewCell.swift in Sources */,
 				85A4C06A1EB1625B00834FA8 /* Data.swift in Sources */,
+				85A4C06C1EB1A3A600834FA8 /* CommentsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
