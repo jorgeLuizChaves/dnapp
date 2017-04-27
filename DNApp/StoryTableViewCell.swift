@@ -24,6 +24,7 @@ class StoryTableViewCell: UITableViewCell {
     @IBOutlet weak var upvoteButton: SpringButton!
 
     @IBOutlet weak var commentButton: SpringButton!
+    @IBOutlet weak var commentTextView: AutoTextView!
     
     weak var delegate: StoryTableViewCellDelegate?
 
@@ -48,6 +49,7 @@ class StoryTableViewCell: UITableViewCell {
         let createdAt = story["created_at"] as! String
         let voteCount = story["vote_count"] as! Int
         let commentCount = story["comment_count"] as! Int
+        let comment = story["comment"] as! String
         
         self.titleLabel.text = title
         self.badgeImageView.image = UIImage(named: "badge-" + badge)
@@ -57,6 +59,10 @@ class StoryTableViewCell: UITableViewCell {
         
         self.upvoteButton.setTitle(String(voteCount), for: UIControlState.normal)
         self.commentButton.setTitle(String(commentCount), for: UIControlState.normal)
+        
+        if let commentTextView = commentTextView {
+            commentTextView.text = comment
+        }
     }
     
     
