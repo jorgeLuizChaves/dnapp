@@ -8,6 +8,7 @@
 
 import UIKit
 import Spring
+import SwiftyJSON
 
 class StoriesTableViewController: UITableViewController, StoryTableViewCellDelegate {
 
@@ -35,7 +36,7 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
         
         let story = data[indexPath.row]
         cell.delegate = self
-        cell.configureWithStory(story as AnyObject)
+        cell.configureWithStory(story as JSON)
         return cell
     }
     
@@ -75,7 +76,7 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
         if segue.identifier == "commentsSegue" {
             let toView = segue.destination as! CommentsTableViewController
             let indexPath = tableView.indexPath(for: sender as! UITableViewCell)!
-            let story = data[indexPath.row] as [String : AnyObject]
+            let story = data[indexPath.row] as JSON
             toView.story = story
 
 
