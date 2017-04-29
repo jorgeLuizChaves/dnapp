@@ -8,6 +8,7 @@
 
 import UIKit
 import Spring
+import SwiftyJSON
 
 class StoryTableViewCell: UITableViewCell {
     
@@ -39,17 +40,17 @@ class StoryTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configureWithStory(_ story: AnyObject) {
+    func configureWithStory(_ story: JSON) {
         
-        let title = story["title"] as! String
-        let badge = story["badge"] as! String
+        let title = story["title"].string!
+        let badge = story["badge"].string!
         // let userPortraitUrl = story["user_portrait_url"] as! String
-        let userDisplayName = story["user_display_name"] as! String
-        let userJob = story["user_job"] as! String
-        let createdAt = story["created_at"] as! String
-        let voteCount = story["vote_count"] as! Int
-        let commentCount = story["comment_count"] as! Int
-        let comment = story["comment"] as! String
+        let userDisplayName = story["user_display_name"].string!
+        let userJob = story["user_job"].string!
+        let createdAt = story["created_at"].string!
+        let voteCount = story["vote_count"].int!
+        let commentCount = story["comment_count"].int!
+//        let comment = story["comment"].int!
         
         self.titleLabel.text = title
         self.badgeImageView.image = UIImage(named: "badge-" + badge)
@@ -61,7 +62,7 @@ class StoryTableViewCell: UITableViewCell {
         self.commentButton.setTitle(String(commentCount), for: UIControlState.normal)
         
         if let commentTextView = commentTextView {
-            commentTextView.text = comment
+            commentTextView.text = String(commentCount)
         }
     }
     
