@@ -7,14 +7,20 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class CommentsTableViewController: UITableViewController {
     
-    var story = [String:AnyObject]()
-
+    var story: JSON!
+    var comments: JSON!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print(story)
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableViewAutomaticDimension
+        comments = story["comments"]
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -30,27 +36,30 @@ class CommentsTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return comments.count + 1
     }
     
     
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let identifier = indexPath.row == 0 ? "StoryCell" : "CommentCell"
 
-        // Configure the cell...
-
-        return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as UITableViewCell!
+        
+        if let storyCell = cell as? StoryTableViewCell{
+            storyCell.configureWithStory(story)
+            return storyCell
+        }else {
+            let commentCell = cell as! CommentsTableViewCell
+            let comment = comments[indexPath.row - 1]
+            commentCell.configureWithComment(comment)
+            return commentCell
+        }
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		851ECF201EB4DCAB00667A35 /* CommentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851ECF1F1EB4DCAB00667A35 /* CommentsTableViewCell.swift */; };
 		854EBF5D1EA316BD004F5D51 /* LearnViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854EBF5C1EA316BD004F5D51 /* LearnViewController.swift */; };
 		857F19CD1EA185FC00A53676 /* LoginUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857F19CC1EA185FC00A53676 /* LoginUIViewController.swift */; };
 		859864F31EAF6BC700FF063F /* StoriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859864F21EAF6BC700FF063F /* StoriesTableViewController.swift */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		2DFCC22B7A70904DBC0B7057 /* Pods-DNApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DNApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-DNApp/Pods-DNApp.release.xcconfig"; sourceTree = "<group>"; };
 		578FD4D30A744FBB6C13014E /* Pods-DNApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DNApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DNApp/Pods-DNApp.debug.xcconfig"; sourceTree = "<group>"; };
+		851ECF1F1EB4DCAB00667A35 /* CommentsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsTableViewCell.swift; sourceTree = "<group>"; };
 		853DB04A1EA8CE7600FD82D5 /* playground02.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = playground02.playground; sourceTree = "<group>"; };
 		854EBF5C1EA316BD004F5D51 /* LearnViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LearnViewController.swift; sourceTree = "<group>"; };
 		857F19CC1EA185FC00A53676 /* LoginUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginUIViewController.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 				85A4C0671EB0F77D00834FA8 /* StoryTableViewCell.swift */,
 				854EBF5C1EA316BD004F5D51 /* LearnViewController.swift */,
 				85A4C06B1EB1A3A600834FA8 /* CommentsTableViewController.swift */,
+				851ECF1F1EB4DCAB00667A35 /* CommentsTableViewCell.swift */,
 				857F19CC1EA185FC00A53676 /* LoginUIViewController.swift */,
 				859864F41EAF834400FF063F /* MenuViewController.swift */,
 				85C002DF1EA0589B003FEB4B /* Main.storyboard */,
@@ -244,6 +247,7 @@
 				859864F31EAF6BC700FF063F /* StoriesTableViewController.swift in Sources */,
 				857F19CD1EA185FC00A53676 /* LoginUIViewController.swift in Sources */,
 				85A4C0681EB0F77D00834FA8 /* StoryTableViewCell.swift in Sources */,
+				851ECF201EB4DCAB00667A35 /* CommentsTableViewCell.swift in Sources */,
 				85A4C06A1EB1625B00834FA8 /* Data.swift in Sources */,
 				85A4C06C1EB1A3A600834FA8 /* CommentsTableViewController.swift in Sources */,
 			);

@@ -6,7 +6,10 @@
 //  Copyright © 2017 Jorge Luiz. All rights reserved.
 //
 
-var data: [[String:Any]] = [
+import UIKit
+import SwiftyJSON
+
+var data: JSON = [
     [
         "id": 44959,
         "title": "Testing Apple watch applications my way!",
