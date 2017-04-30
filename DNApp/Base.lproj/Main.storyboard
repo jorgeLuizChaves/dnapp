@@ -382,6 +382,7 @@
                         <segue destination="TwE-fC-G2z" kind="presentation" identifier="menuSegue" animates="NO" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="qOb-rL-6jx"/>
                         <segue destination="5sD-en-9Xj" kind="presentation" identifier="loginSegue" animates="NO" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="tRY-vo-Q9R"/>
                         <segue destination="WFG-up-bIe" kind="show" identifier="commentsSegue" id="HDB-Ck-VPb"/>
+                        <segue destination="f1a-mX-yNy" kind="presentation" identifier="WebSegue" id="YqY-t9-HLx"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="icd-7q-Plo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -464,6 +465,10 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" progress="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="bfQ-1A-1Na">
+                                <rect key="frame" x="0.0" y="-0.5" width="375" height="2.5"/>
+                                <color key="progressTintColor" red="0.21568627450980393" green="0.72941176470588232" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -471,21 +476,25 @@
                             <constraint firstItem="gva-bI-gVA" firstAttribute="top" secondItem="ZDN-yd-AUt" secondAttribute="bottom" id="42F-5Y-UXb"/>
                             <constraint firstItem="N4w-g8-P5p" firstAttribute="centerY" secondItem="AMF-z1-PVA" secondAttribute="centerY" id="DqN-fR-UMk"/>
                             <constraint firstItem="AMF-z1-PVA" firstAttribute="leading" secondItem="1hY-e3-aIh" secondAttribute="leadingMargin" constant="4" id="FJz-Xy-9Nz"/>
+                            <constraint firstAttribute="trailing" secondItem="bfQ-1A-1Na" secondAttribute="trailing" id="FnN-sF-tk3"/>
                             <constraint firstItem="N4w-g8-P5p" firstAttribute="height" secondItem="AMF-z1-PVA" secondAttribute="height" id="JFk-jX-d7g"/>
                             <constraint firstItem="ZDN-yd-AUt" firstAttribute="top" secondItem="1hY-e3-aIh" secondAttribute="top" id="MyP-EM-hSv"/>
                             <constraint firstItem="ZDN-yd-AUt" firstAttribute="leading" secondItem="1hY-e3-aIh" secondAttribute="leading" id="Q2Y-hg-gIz"/>
                             <constraint firstAttribute="trailing" secondItem="ZDN-yd-AUt" secondAttribute="trailing" id="RuV-OI-3qn"/>
                             <constraint firstItem="N4w-g8-P5p" firstAttribute="leading" secondItem="AMF-z1-PVA" secondAttribute="trailing" constant="20" id="g1p-1x-eSA"/>
                             <constraint firstItem="N4w-g8-P5p" firstAttribute="width" secondItem="AMF-z1-PVA" secondAttribute="width" id="ifB-hN-biS"/>
+                            <constraint firstItem="bfQ-1A-1Na" firstAttribute="top" secondItem="1hY-e3-aIh" secondAttribute="top" id="qVv-yB-tXB"/>
+                            <constraint firstItem="bfQ-1A-1Na" firstAttribute="leading" secondItem="1hY-e3-aIh" secondAttribute="leading" id="txX-N4-fG6"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="progressView" destination="bfQ-1A-1Na" id="m4u-3Z-yxZ"/>
                         <outlet property="webView" destination="ZDN-yd-AUt" id="Z7k-lB-tQS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sPK-3g-0p7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1606" y="-604"/>
+            <point key="canvasLocation" x="-1844" y="-652"/>
         </scene>
         <!--Learn View Controller-->
         <scene sceneID="QCI-Uq-4Vy">
@@ -545,6 +554,9 @@
                                         <state key="normal" title="@MengTo" image="icon-twitter">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="twitterButtonDidTouch:" destination="zzR-NU-OTe" eventType="touchUpInside" id="FlT-Wg-qUc"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oh3-Zc-mLV">
                                         <rect key="frame" x="0.0" y="140" width="280" height="70"/>
@@ -558,7 +570,6 @@
                                         </state>
                                         <connections>
                                             <action selector="learnButtonDidTouch:" destination="zzR-NU-OTe" eventType="touchUpInside" id="KPj-Ho-hON"/>
-                                            <segue destination="f1a-mX-yNy" kind="presentation" id="6fM-iD-yt8"/>
                                         </connections>
                                     </button>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="icon-book" translatesAutoresizingMaskIntoConstraints="NO" id="tAv-6K-Lwe" customClass="SpringImageView" customModule="Spring">
@@ -606,6 +617,7 @@
                     <connections>
                         <outlet property="bookImageView" destination="tAv-6K-Lwe" id="5rp-T3-HYZ"/>
                         <outlet property="dialogView" destination="DED-IG-gLt" id="8q5-gl-4ZL"/>
+                        <segue destination="f1a-mX-yNy" kind="show" identifier="WebSegue" id="gFQ-pS-tVD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mXB-bV-6jW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -780,7 +792,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SjN-BC-CcF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2770" y="-576"/>
+            <point key="canvasLocation" x="-3735" y="-683"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="xUx-XI-mw9">
@@ -966,4 +978,7 @@
         <image name="icon-xcode" width="64" height="59"/>
         <image name="input-outline" width="7" height="44"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="YqY-t9-HLx"/>
+    </inferredMetricsTieBreakers>
 </document>
