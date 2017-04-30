@@ -14,12 +14,13 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
     
     
     let transitionManager = TransitionManager()
+    var stories: JSON! = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
-        // Do any additional setup after loading the view.
+        loadStories("", page: 1)
     }
     
 
@@ -31,13 +32,13 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
     // MARK: Table View Functions
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return stories.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "StoryCell") as! StoryTableViewCell
         
-        let story = data[indexPath.row]
+        let story = stories[indexPath.row]
         cell.delegate = self
         cell.configureWithStory(story as JSON)
         return cell
@@ -80,14 +81,14 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
         if segue.identifier == "commentsSegue" {
             let toView = segue.destination as! CommentsTableViewController
             let indexPath = tableView.indexPath(for: sender as! UITableViewCell)!
-            let story = data[indexPath.row] as JSON
+            let story = stories[indexPath.row] as JSON
             toView.story = story
         }
         
         if segue.identifier == "WebSegue" {
             let toView = segue.destination as! WebViewController
             let indexPath = sender as! IndexPath
-            let story = data[indexPath.row] as JSON
+            let story = stories[indexPath.row] as JSON
             toView.url = story["url"].string!
             
             UIApplication.shared.isStatusBarHidden = true
@@ -95,18 +96,13 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
 
 
         }
-        
-        
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func loadStories(_ section: String, page: Int) {
+        DNService.storiesForSection(section, page: page) { (JSON) -> () in
+            self.stories = JSON["stories"]
+            self.tableView.reloadData()
+        }
     }
-    */
 
 }
