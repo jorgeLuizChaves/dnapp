@@ -20,7 +20,7 @@ class StoryTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
 
     @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var profileImageView: AsyncImageView!
         @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var upvoteButton: SpringButton!
 
@@ -44,22 +44,26 @@ class StoryTableViewCell: UITableViewCell {
         
         let title = story["title"].string!
         let badge = story["badge"].string ?? ""
-        let userPortraitUrl = story["user_portrait_url"] ?? ""
-        let userDisplayName = story["user_display_name"].string!
+        let userPortraitUrl = story["user_portrait_url"].string ?? ""
+        let userDisplayName = story["user_display_name"].string ?? ""
         let userJob = story["user_job"].string ?? ""
-        let createdAt = story["created_at"].string!
+        let createdAt = story["created_at"].string ?? ""
         let voteCount = story["vote_count"].int!
         let commentCount = story["comment_count"].int!
-//        let comment = story["comment"].int!
+        let commentHTML = story["comment_html"].string ?? ""
+
+//        commentTextView.attributedText = htmlToAttributedString(text: commentHTML + "<style>*{font-family:\"Avenir Next\";font-size:16px;line-height:20px}img{max-width:300px}</style>")
         
         self.titleLabel.text = title
         self.badgeImageView.image = UIImage(named: "badge-" + badge)
-        self.profileImageView.image = UIImage(named: "content-avatar-default")
+          self.profileImageView.url = userPortraitUrl.toURL()
+        self.profileImageView.placeholderImage = UIImage(named: "content-avatar-default")
         self.authorLabel.text = userDisplayName + ", " + userJob
         self.timeLabel.text = timeAgoSinceDate(date: dateFromString(date: createdAt, format: timeZoneFormat), numericDates: true)
         
         self.upvoteButton.setTitle(String(voteCount), for: UIControlState.normal)
         self.commentButton.setTitle(String(commentCount), for: UIControlState.normal)
+        
         
         if let commentTextView = commentTextView {
             commentTextView.text = String(commentCount)

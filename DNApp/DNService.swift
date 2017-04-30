@@ -28,12 +28,12 @@ struct DNService {
         var description: String {
             switch self {
             case .login: return "/oauth/token"
-            case .stories: return "/api/v1/stories"
-            case .storyId(let id): return "/api/v1/stories/\(id)"
-            case .storyUpvote(let id): return "/api/v1/stories/\(id)/upvote"
-            case .storyReply(let id): return "/api/v1/stories/\(id)/reply"
-            case .commentUpvote(let id): return "/api/v1/comments/\(id)/upvote"
-            case .commentReply(let id): return "/api/v1/comments/\(id)/reply"
+            case .stories: return "/api/v2/stories"
+            case .storyId(let id): return "/api/v2/stories/\(id)"
+            case .storyUpvote(let id): return "/api/v2/stories/\(id)/upvote"
+            case .storyReply(let id): return "/api/v2/stories/\(id)/reply"
+            case .commentUpvote(let id): return "/api/v2/comments/\(id)/upvote"
+            case .commentReply(let id): return "/api/v2/comments/\(id)/reply"
             }
         }
     }
