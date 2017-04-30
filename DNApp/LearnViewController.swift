@@ -28,6 +28,13 @@ class LearnViewController: UIViewController {
     @IBAction func learnButtonDidTouch(_ sender: UIButton) {
         bookImageView.animation = "pop"
         bookImageView.animate()
+                performSegue(withIdentifier: "WebSegue", sender: nil)
+    }
+    
+    @IBAction func twitterButtonDidTouch(_ sender: Any) {
+        openURL("http://twitter.com/mengto")
+
+
     }
     
     @IBAction func closeButtonDidTouch(_ sender: UIButton) {
@@ -36,6 +43,20 @@ class LearnViewController: UIViewController {
         dialogView.animateNext {
             self.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "WebSegue" {
+            let toView = segue.destination as! WebViewController
+            toView.url = "https://designcode.io/"
+        }
+        
+    }
+    
+    func openURL(_ url: String) {
+        let targetURL = URL(string: url)
+        UIApplication.shared.open(targetURL!, options: [:], completionHandler: nil)
     }
     
 }

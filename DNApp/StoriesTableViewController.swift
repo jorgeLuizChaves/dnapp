@@ -11,6 +11,9 @@ import Spring
 import SwiftyJSON
 
 class StoriesTableViewController: UITableViewController, StoryTableViewCellDelegate {
+    
+    
+    let transitionManager = TransitionManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +46,7 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        performSegue(withIdentifier: "WebSegue", sender: self)
+        performSegue(withIdentifier: "WebSegue", sender: indexPath)
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -54,6 +57,7 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
     
     @IBAction func loginButtonDidTouch(_ sender: Any) {
         performSegue(withIdentifier: "loginSegue", sender: self)
+        
     }
 
     @IBAction func menuButtonDidTouch(_ sender: Any) {
@@ -78,9 +82,21 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
             let indexPath = tableView.indexPath(for: sender as! UITableViewCell)!
             let story = data[indexPath.row] as JSON
             toView.story = story
+        }
+        
+        if segue.identifier == "WebSegue" {
+            let toView = segue.destination as! WebViewController
+            let indexPath = sender as! IndexPath
+            let story = data[indexPath.row] as JSON
+            toView.url = story["url"].string!
+            
+            UIApplication.shared.isStatusBarHidden = true
+            toView.transitioningDelegate = transitionManager
 
 
         }
+        
+        
     }
     
     /*
