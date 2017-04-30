@@ -13,7 +13,7 @@ import SwiftyJSON
 class CommentsTableViewCell: UITableViewCell {
     
     
-    @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet weak var avatarImageView: AsyncImageView!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
@@ -50,6 +50,13 @@ class CommentsTableViewCell: UITableViewCell {
         let createdAt = comment["created_at"].string!
         let voteCount = comment["vote_count"].int!
         let body = comment["body"].string!
+        let bodyHTML = comment["body_html"].string ?? ""
+        
+        
+        self.avatarImageView.url = userPortraitUrl.toURL()
+        self.avatarImageView.placeholderImage = UIImage(named: "content-avatar-default")
+        
+        commentTextView.attributedText = htmlToAttributedString(text: bodyHTML + "<style>*{font-family:\"Avenir Next\";font-size:16px;line-height:20px}img{max-width:300px}</style>")
         
         avatarImageView.image = UIImage(named: "content-avatar-default")
         authorLabel.text = userDisplayName + ", " + userJob

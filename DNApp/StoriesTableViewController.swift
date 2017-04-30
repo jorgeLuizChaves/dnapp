@@ -10,17 +10,37 @@ import UIKit
 import Spring
 import SwiftyJSON
 
-class StoriesTableViewController: UITableViewController, StoryTableViewCellDelegate {
+class StoriesTableViewController: UITableViewController, StoryTableViewCellDelegate, MenuViewControllerDelegate {
     
     
     let transitionManager = TransitionManager()
     var stories: JSON! = []
+    var isFirstTime = true
+    var section = ""
+
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         loadStories("", page: 1)
+        
+        refreshControl?.addTarget(self, action: #selector(self.refreshStories), for: UIControlEvents.valueChanged)
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        if isFirstTime {
+            view.showLoading()
+            isFirstTime = false
+        }
+        
+    }
+    
+    func refreshStories() {
+        loadStories(section, page: 1)
     }
     
 
@@ -77,6 +97,21 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
 
     }
     
+    // MARK: Delegate MenuUIViewController
+    func menuViewControllerDidTouchTop(_ controller: MenuViewController) {
+        section = ""
+        view.showLoading()
+        loadStories("", page: 1)
+        navigationItem.title = "Top Stories"
+    }
+    
+    func menuViewControllerDidTouchRecent(_ controller: MenuViewController) {
+        section = "recent"
+        view.showLoading()
+        loadStories("recent", page: 1)
+        navigationItem.title = "Recent Stories"
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "commentsSegue" {
             let toView = segue.destination as! CommentsTableViewController
@@ -93,8 +128,11 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
             
             UIApplication.shared.isStatusBarHidden = true
             toView.transitioningDelegate = transitionManager
-
-
+        }
+        
+        if segue.identifier == "menuSegue" {
+            let toView = segue.destination as! MenuViewController
+            toView.delegate = self
         }
     }
     
@@ -102,6 +140,8 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
         DNService.storiesForSection(section, page: page) { (JSON) -> () in
             self.stories = JSON["stories"]
             self.tableView.reloadData()
+            self.view.hideLoading()
+            self.refreshControl?.endRefreshing()
         }
     }
 
