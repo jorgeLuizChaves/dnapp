@@ -9,7 +9,7 @@
 import UIKit
 import Spring
 
-class MenuViewController: UIViewController {
+class MenuViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var dialogView: DesignableView!
     
@@ -30,16 +30,8 @@ class MenuViewController: UIViewController {
         dialogView.animate()
     }
     
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
-    */
 
 }
