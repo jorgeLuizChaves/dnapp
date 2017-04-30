@@ -44,9 +44,9 @@ class CommentsTableViewCell: UITableViewCell {
     }
     
     func configureWithComment(_ comment: JSON) {
-        let userPortraitUrl = comment["user_portrait_url"].string!
+        let userPortraitUrl = comment["user_portrait_url"].string ?? ""
         let userDisplayName = comment["user_display_name"].string!
-        let userJob = comment["user_job"].string!
+        let userJob = comment["user_job"].string ?? ""
         let createdAt = comment["created_at"].string!
         let voteCount = comment["vote_count"].int!
         let body = comment["body"].string!
