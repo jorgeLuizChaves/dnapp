@@ -659,7 +659,6 @@
                                                         <constraint firstAttribute="width" constant="635" id="LeY-aG-r5u"/>
                                                         <constraint firstAttribute="height" constant="647" id="QUz-dh-1mr"/>
                                                     </constraints>
-                                                    <state key="normal" title="Button"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
                                                             <exclude reference="9M0-6H-jLV"/>
