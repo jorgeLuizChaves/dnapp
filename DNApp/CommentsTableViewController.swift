@@ -12,7 +12,7 @@ import SwiftyJSON
 class CommentsTableViewController: UITableViewController {
     
     var story: JSON!
-    var comments: JSON!
+    var comments = [JSON]()
     
     
     override func viewDidLoad() {
@@ -20,7 +20,8 @@ class CommentsTableViewController: UITableViewController {
         print(story)
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
-        comments = story["comments"]
+        self.loadComment(story)
+        
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -54,56 +55,31 @@ class CommentsTableViewController: UITableViewController {
             return storyCell
         }else {
             let commentCell = cell as! CommentsTableViewCell
-            let comment = comments[indexPath.row - 1]
-            commentCell.configureWithComment(comment)
+            if comments.count > 0 {
+                let comment = comments[indexPath.row - 1]["comments"][0]
+                commentCell.configureWithComment(comment)
+                self.refreshControl?.endRefreshing()
+            }
             return commentCell
         }
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    private func loadComment(_ story: JSON){
+        self.view.showLoading()
+        
+        if let commentsIds = story["links"]["comments"].array{
+            if commentsIds.count == 0 {
+                self.view.hideLoading()
+            }
+            
+            for commentId in commentsIds {
+                DNService.comment(byId: commentId.string!, completionHandler: { (JSON) in
+                    self.comments.append(JSON)
+                    self.tableView.reloadData()
+                    self.view.hideLoading()
+                })
+            }
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
