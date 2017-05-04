@@ -24,6 +24,7 @@ struct DNService {
         case storyReply(storyId: Int)
         case commentUpvote(commentId: Int)
         case commentReply(commentId: Int)
+        case comment(commentId: String)
         
         var description: String {
             switch self {
@@ -34,8 +35,19 @@ struct DNService {
             case .storyReply(let id): return "/api/v2/stories/\(id)/reply"
             case .commentUpvote(let id): return "/api/v2/comments/\(id)/upvote"
             case .commentReply(let id): return "/api/v2/comments/\(id)/reply"
+            case .comment(let id): return "/api/v2/comments/\(id)"
             }
         }
+    }
+    
+    static func comment(byId commentId: String, completionHandler: @escaping (JSON) -> ()) {
+        let urlString = baseURL + ResourcePath.comment(commentId: commentId).description
+        Alamofire.request(urlString, method: .get, parameters: [:]).responseJSON { res in
+            let comment = JSON(res.result.value ?? "")
+            print(comment)
+            completionHandler(comment)
+        }
+
     }
     
     static func storiesForSection(_ section: String, page: Int, completionHandler: @escaping (JSON) -> ()) {

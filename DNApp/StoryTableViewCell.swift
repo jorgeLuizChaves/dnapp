@@ -49,7 +49,7 @@ class StoryTableViewCell: UITableViewCell {
         let userJob = story["user_job"].string ?? ""
         let createdAt = story["created_at"].string ?? ""
         let voteCount = story["vote_count"].int!
-        let commentCount = story["comment_count"].int!
+        let commentCount = story["links"]["comments"].count
         let commentHTML = story["comment_html"].string ?? ""
 
 //        commentTextView.attributedText = htmlToAttributedString(text: commentHTML + "<style>*{font-family:\"Avenir Next\";font-size:16px;line-height:20px}img{max-width:300px}</style>")
