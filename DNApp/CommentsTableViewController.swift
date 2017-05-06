@@ -58,7 +58,6 @@ class CommentsTableViewController: UITableViewController {
             if comments.count > 0 {
                 let comment = comments[indexPath.row - 1]["comments"][0]
                 commentCell.configureWithComment(comment)
-                self.refreshControl?.endRefreshing()
             }
             return commentCell
         }
@@ -75,8 +74,11 @@ class CommentsTableViewController: UITableViewController {
             for commentId in commentsIds {
                 DNService.comment(byId: commentId.string!, completionHandler: { (JSON) in
                     self.comments.append(JSON)
-                    self.tableView.reloadData()
-                    self.view.hideLoading()
+                    if(self.comments.count == story["links"]["comments"].array?.count){
+                        self.tableView.reloadData()
+                        self.view.hideLoading()
+                        self.refreshControl?.endRefreshing()
+                    }
                 })
             }
         }
