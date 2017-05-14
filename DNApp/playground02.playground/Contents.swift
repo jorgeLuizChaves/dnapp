@@ -1,6 +1,7 @@
 //: Playground - noun: a place where people can play
 
 import UIKit
+import SwiftyJSON
 
 //CGRectMake, CGPointMake, CGSizeMake removed from Swift 3, use instead CGRect, CGPoint, CGSize
 let canvas = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
@@ -59,6 +60,11 @@ for number in numbers {
     print(number)
 }
 
+ var stories: JSON! = []
 
+stories = ["name" : "Jonh"]
+
+
+print(stories)
 
 

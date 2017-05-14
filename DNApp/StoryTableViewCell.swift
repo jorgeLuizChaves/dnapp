@@ -40,32 +40,24 @@ class StoryTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configureWithStory(_ story: JSON) {
-        
-        let title = story["title"].string!
-        let badge = story["badge"].string ?? ""
-        let userPortraitUrl = story["user_portrait_url"].string ?? ""
-        let userDisplayName = story["user_display_name"].string ?? ""
-        let userJob = story["user_job"].string ?? ""
-        let createdAt = story["created_at"].string ?? ""
-        let voteCount = story["vote_count"].int!
-        let commentCount = story["links"]["comments"].count
-        
-        self.titleLabel.text = title
-        self.badgeImageView.image = UIImage(named: "badge-" + badge)
-          self.profileImageView.url = userPortraitUrl.toURL()
+    func configureWithStory(_ story: Story) {
+        self.titleLabel.text = story.title
+        self.badgeImageView.image = UIImage(named: "badge-\(story.badge)")
+        self.profileImageView.url = NSURL(string: story.profile?.urlImageProfile ?? "")
         self.profileImageView.placeholderImage = UIImage(named: "content-avatar-default")
-        self.authorLabel.text = userDisplayName + ", " + userJob
-        self.timeLabel.text = timeAgoSinceDate(date: dateFromString(date: createdAt, format: timeZoneFormat), numericDates: true)
+        self.authorLabel.text = story.profile?.name
+        self.timeLabel.text = timeAgoSinceDate(date: dateFromString(date: story.createdAt, format: timeZoneFormat), numericDates: true)
         
-        self.upvoteButton.setTitle(String(voteCount), for: UIControlState.normal)
-        self.commentButton.setTitle(String(commentCount), for: UIControlState.normal)
+        self.upvoteButton.setTitle(String(story.voteCount), for: UIControlState.normal)
+        self.commentButton.setTitle(String(story.commentsIds.count), for: UIControlState.normal)
         
         
         if let commentTextView = commentTextView {
-            commentTextView.text = String(commentCount)
+            commentTextView.text = String(story.commentsIds.count)
         }
     }
+    
+
     
     
     @IBAction func upvoteButtonDidTouch(_ sender: Any) {

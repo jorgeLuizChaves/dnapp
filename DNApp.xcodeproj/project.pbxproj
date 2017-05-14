@@ -25,6 +25,8 @@
 		85C002E11EA0589B003FEB4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85C002DF1EA0589B003FEB4B /* Main.storyboard */; };
 		85C002E31EA0589B003FEB4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85C002E21EA0589B003FEB4B /* Assets.xcassets */; };
 		85C002E61EA0589B003FEB4B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85C002E41EA0589B003FEB4B /* LaunchScreen.storyboard */; };
+		85D1C6701EC7CA1F00E7CB9B /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D1C66F1EC7CA1F00E7CB9B /* Story.swift */; };
+		85D1C6721EC7CB0100E7CB9B /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D1C6711EC7CB0100E7CB9B /* Profile.swift */; };
 		ED7669DA9109273CE0F316F7 /* Pods_DNApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14CAD9302A536846C44A31F /* Pods_DNApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +59,8 @@
 		85C002E21EA0589B003FEB4B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		85C002E51EA0589B003FEB4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		85C002E71EA0589B003FEB4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		85D1C66F1EC7CA1F00E7CB9B /* Story.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
+		85D1C6711EC7CB0100E7CB9B /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		E14CAD9302A536846C44A31F /* Pods_DNApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DNApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -96,6 +100,57 @@
 			path = TPKeyboardAvoiding;
 			sourceTree = "<group>";
 		};
+		85212B421EC7663900B10A55 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				85A4C0691EB1625B00834FA8 /* Data.swift */,
+				85D1C66F1EC7CA1F00E7CB9B /* Story.swift */,
+				85D1C6711EC7CB0100E7CB9B /* Profile.swift */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
+		85212B431EC7664400B10A55 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				859864F61EAF848900FF063F /* WebViewController.swift */,
+				859864F41EAF834400FF063F /* MenuViewController.swift */,
+				857F19CC1EA185FC00A53676 /* LoginUIViewController.swift */,
+				85A4C06B1EB1A3A600834FA8 /* CommentsTableViewController.swift */,
+				854EBF5C1EA316BD004F5D51 /* LearnViewController.swift */,
+				859864F21EAF6BC700FF063F /* StoriesTableViewController.swift */,
+			);
+			name = controller;
+			sourceTree = "<group>";
+		};
+		85212B441EC7665000B10A55 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				85C002E41EA0589B003FEB4B /* LaunchScreen.storyboard */,
+				85C002DF1EA0589B003FEB4B /* Main.storyboard */,
+				85A4C0671EB0F77D00834FA8 /* StoryTableViewCell.swift */,
+				851ECF1F1EB4DCAB00667A35 /* CommentsTableViewCell.swift */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
+		85212B451EC7666B00B10A55 /* service */ = {
+			isa = PBXGroup;
+			children = (
+				851ECF551EB690D600667A35 /* DNService.swift */,
+			);
+			name = service;
+			sourceTree = "<group>";
+		};
+		85212B461EC766C200B10A55 /* playground */ = {
+			isa = PBXGroup;
+			children = (
+				857F19CE1EA18C0300A53676 /* playground.playground */,
+				853DB04A1EA8CE7600FD82D5 /* playground02.playground */,
+			);
+			name = playground;
+			sourceTree = "<group>";
+		};
 		85C002CF1EA0589B003FEB4B = {
 			isa = PBXGroup;
 			children = (
@@ -117,24 +172,15 @@
 		85C002DA1EA0589B003FEB4B /* DNApp */ = {
 			isa = PBXGroup;
 			children = (
+				85212B461EC766C200B10A55 /* playground */,
+				85212B451EC7666B00B10A55 /* service */,
+				85212B441EC7665000B10A55 /* view */,
+				85212B431EC7664400B10A55 /* controller */,
+				85212B421EC7663900B10A55 /* model */,
 				851ECF481EB659E400667A35 /* TPKeyboardAvoiding */,
 				85C002DB1EA0589B003FEB4B /* AppDelegate.swift */,
-				859864F21EAF6BC700FF063F /* StoriesTableViewController.swift */,
-				851ECF551EB690D600667A35 /* DNService.swift */,
-				85A4C0691EB1625B00834FA8 /* Data.swift */,
-				85A4C0671EB0F77D00834FA8 /* StoryTableViewCell.swift */,
-				854EBF5C1EA316BD004F5D51 /* LearnViewController.swift */,
-				85A4C06B1EB1A3A600834FA8 /* CommentsTableViewController.swift */,
-				851ECF1F1EB4DCAB00667A35 /* CommentsTableViewCell.swift */,
-				857F19CC1EA185FC00A53676 /* LoginUIViewController.swift */,
-				859864F41EAF834400FF063F /* MenuViewController.swift */,
-				85C002DF1EA0589B003FEB4B /* Main.storyboard */,
 				85C002E21EA0589B003FEB4B /* Assets.xcassets */,
-				85C002E41EA0589B003FEB4B /* LaunchScreen.storyboard */,
 				85C002E71EA0589B003FEB4B /* Info.plist */,
-				857F19CE1EA18C0300A53676 /* playground.playground */,
-				853DB04A1EA8CE7600FD82D5 /* playground02.playground */,
-				859864F61EAF848900FF063F /* WebViewController.swift */,
 			);
 			path = DNApp;
 			sourceTree = "<group>";
@@ -271,6 +317,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85D1C6721EC7CB0100E7CB9B /* Profile.swift in Sources */,
 				854EBF5D1EA316BD004F5D51 /* LearnViewController.swift in Sources */,
 				859864F71EAF848900FF063F /* WebViewController.swift in Sources */,
 				859864F51EAF834400FF063F /* MenuViewController.swift in Sources */,
@@ -278,6 +325,7 @@
 				85C002DC1EA0589B003FEB4B /* AppDelegate.swift in Sources */,
 				851ECF511EB659E400667A35 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				851ECF531EB659E400667A35 /* TPKeyboardAvoidingTableView.m in Sources */,
+				85D1C6701EC7CA1F00E7CB9B /* Story.swift in Sources */,
 				851ECF561EB690D600667A35 /* DNService.swift in Sources */,
 				859864F31EAF6BC700FF063F /* StoriesTableViewController.swift in Sources */,
 				857F19CD1EA185FC00A53676 /* LoginUIViewController.swift in Sources */,

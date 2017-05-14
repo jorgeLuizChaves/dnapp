@@ -14,9 +14,11 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
     
     
     let transitionManager = TransitionManager()
-    var stories: JSON! = []
+    var stories: [Story] = []
     var isFirstTime = true
     var section = ""
+    var userStory: JSON! = []
+    var countStories: Int = 0
 
 
 
@@ -60,7 +62,7 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
         
         let story = stories[indexPath.row]
         cell.delegate = self
-        cell.configureWithStory(story as JSON)
+        cell.configureWithStory(story)
         return cell
     }
     
@@ -116,15 +118,15 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
         if segue.identifier == "commentsSegue" {
             let toView = segue.destination as! CommentsTableViewController
             let indexPath = tableView.indexPath(for: sender as! UITableViewCell)!
-            let story = stories[indexPath.row] as JSON
+            let story = stories[indexPath.row]
             toView.story = story
         }
         
         if segue.identifier == "WebSegue" {
             let toView = segue.destination as! WebViewController
             let indexPath = sender as! IndexPath
-            let story = stories[indexPath.row] as JSON
-            toView.url = story["url"].string!
+            let story = stories[indexPath.row]
+            toView.url = story.storyUrl
             
             UIApplication.shared.isStatusBarHidden = true
             toView.transitioningDelegate = transitionManager
@@ -138,10 +140,29 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
     
     func loadStories(_ section: String, page: Int) {
         DNService.storiesForSection(section, page: page) { (JSON) -> () in
-            self.stories = JSON["stories"]
-            self.tableView.reloadData()
-            self.view.hideLoading()
-            self.refreshControl?.endRefreshing()
+            self.countStories = 0
+            self.userStory = JSON["stories"]
+            for storyJSON in self.userStory.array ?? [] {
+                
+                if(self.countStories < JSON["stories"].array!.count){
+                    let userId = storyJSON["links"]["user"].string ?? ""
+                    DNService.profile(byId: userId, completionHandler: { (JSON) -> () in
+                        let profile = Profile(userJSON: JSON["users"])
+                        let story = Story(story: storyJSON, profile: profile)
+                        self.countStories = self.countStories + 1
+                        self.stories.append(story)
+                        
+                        if(self.countStories == self.userStory!.count){
+                            self.tableView.reloadData()
+                            self.view.hideLoading()
+                            self.refreshControl?.endRefreshing()
+                        }
+                    })
+                }
+            }
+            
+            
+
         }
     }
 
