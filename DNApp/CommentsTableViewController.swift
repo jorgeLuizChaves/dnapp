@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class CommentsTableViewController: UITableViewController {
     
-    var story: JSON!
+    var story: Story!
     var comments = [JSON]()
     
     
@@ -51,7 +51,7 @@ class CommentsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as UITableViewCell!
         
         if let storyCell = cell as? StoryTableViewCell{
-            storyCell.configureWithStory(story)
+//            storyCell.configureWithStory(story, user: user)
             return storyCell
         }else {
             let commentCell = cell as! CommentsTableViewCell
@@ -63,24 +63,22 @@ class CommentsTableViewController: UITableViewController {
         }
     }
     
-    private func loadComment(_ story: JSON){
+    private func loadComment(_ story: Story){
         self.view.showLoading()
         
-        if let commentsIds = story["links"]["comments"].array{
-            if commentsIds.count == 0 {
+            if story.commentsIds.count == 0 {
                 self.view.hideLoading()
             }
             
-            for commentId in commentsIds {
+            for commentId in story.commentsIds {
                 DNService.comment(byId: commentId.string!, completionHandler: { (JSON) in
-                    self.comments.append(JSON)
-                    if(self.comments.count == story["links"]["comments"].array?.count){
-                        self.tableView.reloadData()
-                        self.view.hideLoading()
-                        self.refreshControl?.endRefreshing()
-                    }
+//                    self.comments.append(JSON)
+//                    if(self.comments.count == story["links"]["comments"].array?.count){
+//                        self.tableView.reloadData()
+//                        self.view.hideLoading()
+//                        self.refreshControl?.endRefreshing()
+//                    }
                 })
-            }
         }
     }
 
