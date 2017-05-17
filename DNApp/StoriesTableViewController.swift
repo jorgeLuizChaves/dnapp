@@ -142,8 +142,8 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
         DNService.storiesForSection(section, page: page) { (JSON) -> () in
             self.countStories = 0
             self.userStory = JSON["stories"]
-            for storyJSON in self.userStory.array ?? [] {
-                
+            let storiesJson = self.userStory.array ?? []
+            for storyJSON in storiesJson {
                 if(self.countStories < JSON["stories"].array!.count){
                     let userId = storyJSON["links"]["user"].string ?? ""
                     DNService.profile(byId: userId, completionHandler: { (JSON) -> () in
@@ -160,10 +160,6 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
                     })
                 }
             }
-            
-            
-
         }
     }
-
 }
