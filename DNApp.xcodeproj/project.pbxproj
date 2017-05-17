@@ -27,6 +27,7 @@
 		85C002E61EA0589B003FEB4B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85C002E41EA0589B003FEB4B /* LaunchScreen.storyboard */; };
 		85D1C6701EC7CA1F00E7CB9B /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D1C66F1EC7CA1F00E7CB9B /* Story.swift */; };
 		85D1C6721EC7CB0100E7CB9B /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D1C6711EC7CB0100E7CB9B /* Profile.swift */; };
+		85D1C6741EC8BC3F00E7CB9B /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D1C6731EC8BC3F00E7CB9B /* Comment.swift */; };
 		ED7669DA9109273CE0F316F7 /* Pods_DNApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E14CAD9302A536846C44A31F /* Pods_DNApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,7 @@
 		85C002E71EA0589B003FEB4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		85D1C66F1EC7CA1F00E7CB9B /* Story.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		85D1C6711EC7CB0100E7CB9B /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		85D1C6731EC8BC3F00E7CB9B /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		E14CAD9302A536846C44A31F /* Pods_DNApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DNApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -106,6 +108,7 @@
 				85A4C0691EB1625B00834FA8 /* Data.swift */,
 				85D1C66F1EC7CA1F00E7CB9B /* Story.swift */,
 				85D1C6711EC7CB0100E7CB9B /* Profile.swift */,
+				85D1C6731EC8BC3F00E7CB9B /* Comment.swift */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				851ECF541EB659E400667A35 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				85C002DC1EA0589B003FEB4B /* AppDelegate.swift in Sources */,
 				851ECF511EB659E400667A35 /* TPKeyboardAvoidingCollectionView.m in Sources */,
+				85D1C6741EC8BC3F00E7CB9B /* Comment.swift in Sources */,
 				851ECF531EB659E400667A35 /* TPKeyboardAvoidingTableView.m in Sources */,
 				85D1C6701EC7CA1F00E7CB9B /* Story.swift in Sources */,
 				851ECF561EB690D600667A35 /* DNService.swift in Sources */,

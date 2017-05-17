@@ -14,30 +14,23 @@ class StoryTableViewCell: UITableViewCell {
     
     let timeZoneFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
     
-    
-    @IBOutlet weak var badgeImageView: UIImageView!
-    
-    @IBOutlet weak var titleLabel: UILabel!
-
     @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var profileImageView: AsyncImageView!
-        @IBOutlet weak var authorLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var upvoteButton: SpringButton!
-
+    @IBOutlet weak var badgeImageView: UIImageView!
     @IBOutlet weak var commentButton: SpringButton!
     @IBOutlet weak var commentTextView: AutoTextView!
+    @IBOutlet weak var profileImageView: AsyncImageView!
     
     weak var delegate: StoryTableViewCellDelegate?
 
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
     }
     
     func configureWithStory(_ story: Story) {

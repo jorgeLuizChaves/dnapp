@@ -45,15 +45,14 @@ class CommentsTableViewCell: UITableViewCell {
         
     }
     
-    func configureWithComment(_ comment: JSON) {
-        print(comment.string ?? "no data")
-        let userPortraitUrl = comment["user_portrait_url"].string ?? ""
-        let userDisplayName = comment["user_display_name"].string ?? ""
-        let userJob = comment["user_job"].string ?? ""
-        let createdAt = comment["created_at"].string ?? ""
-        let voteCount = comment["comment_upvotes"].count
-        let body = comment["body"].string ?? ""
-        let bodyHTML = comment["body_html"].string ?? ""
+    func configureWithComment(_ comment: Comment) {        
+        let userPortraitUrl =  comment.profile.urlImageProfile
+        let userDisplayName = comment.profile.name
+        let userJob = comment.profile.job
+        let createdAt = comment.createdAt
+        let voteCount = comment.voteCount
+        let body = comment.body
+        let bodyHTML = comment.bodyHTML
         
         
 //        self.avatarImageView.url = userPortraitUrl.toURL() ?? NSURL(string: "")
