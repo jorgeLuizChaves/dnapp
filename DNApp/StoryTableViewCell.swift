@@ -35,10 +35,11 @@ class StoryTableViewCell: UITableViewCell {
     
     func configureWithStory(_ story: Story) {
         self.titleLabel.text = story.title
+        self.authorLabel.text = story.profile?.name
         self.badgeImageView.image = UIImage(named: "badge-\(story.badge)")
         self.profileImageView.url = NSURL(string: story.profile?.urlImageProfile ?? "")
         self.profileImageView.placeholderImage = UIImage(named: "content-avatar-default")
-        self.authorLabel.text = story.profile?.name
+        
         self.timeLabel.text = timeAgoSinceDate(date: dateFromString(date: story.createdAt, format: timeZoneFormat), numericDates: true)
         
         self.upvoteButton.setTitle(String(story.voteCount), for: UIControlState.normal)
@@ -49,9 +50,6 @@ class StoryTableViewCell: UITableViewCell {
             commentTextView.text = String(story.commentsIds.count)
         }
     }
-    
-
-    
     
     @IBAction func upvoteButtonDidTouch(_ sender: Any) {
         upvoteButton.animation = "pop"

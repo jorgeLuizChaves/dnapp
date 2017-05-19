@@ -12,15 +12,12 @@ import SwiftyJSON
 
 class StoriesTableViewController: UITableViewController, StoryTableViewCellDelegate, MenuViewControllerDelegate {
     
-    
     let transitionManager = TransitionManager()
-    var stories: [Story] = []
-    var isFirstTime = true
+    
     var section = ""
+    var isFirstTime = true
+    var stories: [Story] = []
     var userStory: JSON! = []
-    var countStories: Int = 0
-
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +26,6 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
         loadStories("", page: 1)
         
         refreshControl?.addTarget(self, action: #selector(self.refreshStories), for: UIControlEvents.valueChanged)
-
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -38,7 +34,6 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
             view.showLoading()
             isFirstTime = false
         }
-        
     }
     
     func refreshStories() {
@@ -48,11 +43,9 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // MARK: Table View Functions
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return stories.count
     }
@@ -68,25 +61,19 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         performSegue(withIdentifier: "WebSegue", sender: indexPath)
-        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
     
     
     // MARK: Events Touches
-    
     @IBAction func loginButtonDidTouch(_ sender: Any) {
         performSegue(withIdentifier: "loginSegue", sender: self)
-        
     }
 
     @IBAction func menuButtonDidTouch(_ sender: Any) {
-        
         performSegue(withIdentifier: "menuSegue", sender: self)
-        
     }
     
     // MARK: StoryTableViewCellDelegate
@@ -139,20 +126,20 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
     }
     
     func loadStories(_ section: String, page: Int) {
+        self.stories = []
+        self.tableView.reloadData()
         DNService.storiesForSection(section, page: page) { (JSON) -> () in
-            self.countStories = 0
             self.userStory = JSON["stories"]
             let storiesJson = self.userStory.array ?? []
             for storyJSON in storiesJson {
-                if(self.countStories < JSON["stories"].array!.count){
+                if(self.stories.count < JSON["stories"].array!.count){
                     let userId = storyJSON["links"]["user"].string ?? ""
                     DNService.profile(byId: userId, completionHandler: { (JSON) -> () in
                         let profile = Profile(userJSON: JSON["users"])
                         let story = Story(story: storyJSON, profile: profile)
-                        self.countStories = self.countStories + 1
                         self.stories.append(story)
                         
-                        if(self.countStories == self.userStory!.count){
+                        if(self.stories.count == self.userStory!.count){
                             self.tableView.reloadData()
                             self.view.hideLoading()
                             self.refreshControl?.endRefreshing()

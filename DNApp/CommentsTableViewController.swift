@@ -13,12 +13,12 @@ class CommentsTableViewController: UITableViewController {
     
     var story: Story!
     var comments = [Comment]()
+    var isLoadFinished = false
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(story)
-        tableView.estimatedRowHeight = 100
+        tableView.estimatedRowHeight = 119
         tableView.rowHeight = UITableViewAutomaticDimension
         self.loadComment(story)
     }
@@ -29,12 +29,8 @@ class CommentsTableViewController: UITableViewController {
 
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return (comments.count + 1)
+        return isLoadFinished ? (comments.count + 1) : 0
     }
-    
-    
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier = indexPath.row == 0 ? "StoryCell" : "CommentCell"
@@ -58,12 +54,12 @@ class CommentsTableViewController: UITableViewController {
         self.view.showLoading()
         
             if story.commentsIds.count == 0 {
+                self.isLoadFinished = true
                 self.view.hideLoading()
             }
             
             for commentId in story.commentsIds {
                 DNService.comment(byId: commentId.string!, completionHandler: { (JSON) in
-                    print("user: \(JSON["comments"][0]["links"]["user"])")
                     let commentJSON = JSON["comments"][0]
                     let userId = commentJSON["links"]["user"].string!
                     
@@ -73,6 +69,7 @@ class CommentsTableViewController: UITableViewController {
                         self.comments.append(comment)
                         
                         if(self.comments.count == story.commentsIds.count){
+                            self.isLoadFinished = true
                             self.tableView.reloadData()
                             self.view.hideLoading()
                             self.refreshControl?.endRefreshing()
@@ -81,5 +78,4 @@ class CommentsTableViewController: UITableViewController {
                 })
         }
     }
-
 }

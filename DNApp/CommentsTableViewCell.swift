@@ -12,6 +12,8 @@ import SwiftyJSON
 
 class CommentsTableViewCell: UITableViewCell {
     
+    let timeZoneFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+    
     
     @IBOutlet weak var avatarImageView: AsyncImageView!
     @IBOutlet weak var authorLabel: UILabel!
@@ -20,23 +22,20 @@ class CommentsTableViewCell: UITableViewCell {
     @IBOutlet weak var upvoteButton: SpringButton!
     @IBOutlet weak var replyButton: SpringButton!
 
-    @IBOutlet weak var commentTextView: AutoTextView!
+//    @IBOutlet weak var commentTextView: AutoTextView!
+    @IBOutlet weak var commentLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     
     
     @IBAction func upvoteButtonDidTouch(_ sender: SpringButton) {
-        
         
     }
     
@@ -46,26 +45,19 @@ class CommentsTableViewCell: UITableViewCell {
     }
     
     func configureWithComment(_ comment: Comment) {        
-        let userPortraitUrl =  comment.profile.urlImageProfile
-        let userDisplayName = comment.profile.name
+        let body = comment.body
+        let bodyHTML = comment.bodyHTML
         let userJob = comment.profile.job
         let createdAt = comment.createdAt
         let voteCount = comment.voteCount
-        let body = comment.body
-        let bodyHTML = comment.bodyHTML
+        let userDisplayName = comment.profile.name
         
-        
-//        self.avatarImageView.url = userPortraitUrl.toURL() ?? NSURL(string: "")
-//        self.avatarImageView.placeholderImage = UIImage(named: "content-avatar-default")
-        
-        commentTextView.attributedText = htmlToAttributedString(text: bodyHTML + "<style>*{font-family:\"Avenir Next\";font-size:16px;line-height:20px}img{max-width:300px}</style>")
+//        commentTextView.attributedText = htmlToAttributedString(text:"\(bodyHTML)<style>*{font-family:\"Avenir Next\";font-size:16px;line-height:20px}img{max-width:300px}</style>")
         
         avatarImageView.image = UIImage(named: "content-avatar-default")
-        authorLabel.text = userDisplayName + ", " + userJob
-        timeLabel.text = timeAgoSinceDate(date: dateFromString(date: createdAt, format: "yyyy-MM-dd'T'HH:mm:ssZ"), numericDates: true)
+        authorLabel.text = "\(userDisplayName), \(userJob)"
+        timeLabel.text = timeAgoSinceDate(date: dateFromString(date: createdAt, format: timeZoneFormat), numericDates: true)
         upvoteButton.setTitle(String(voteCount), for: UIControlState.normal)
-        commentTextView.text = body
+        commentLabel.text = body
     }
-    
-
 }

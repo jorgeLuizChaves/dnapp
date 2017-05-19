@@ -24,11 +24,10 @@ class Story: NSObject {
         self.profile = profile
         self.title = story["title"].string ?? ""
         self.badge = story["badge"].string ?? ""
-        self.storyUrl = story["title"].string ?? ""
+        self.storyUrl = story["url"].string ?? ""
         self.voteCount = story["links"]["upvotes"].count
         self.createdAt = story["created_at"].string ?? ""
         self.commentCount = story["links"]["comments"].count
         self.commentsIds = story["links"]["comments"].array ?? []
     }
-
 }
