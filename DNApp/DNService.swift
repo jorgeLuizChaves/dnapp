@@ -19,25 +19,25 @@ struct DNService {
     private enum ResourcePath: CustomStringConvertible {
         case login
         case stories
+        case user(userId: String)
         case storyId(storyId: Int)
-        case storyUpvote(storyId: Int)
         case storyReply(storyId: Int)
-        case commentUpvote(commentId: Int)
+        case storyUpvote(storyId: Int)
         case commentReply(commentId: Int)
         case comment(commentId: String)
-        case user(userId: String)
+        case commentUpvote(commentId: Int)
         
         var description: String {
             switch self {
             case .login: return "/oauth/token"
             case .stories: return "/api/v2/stories"
-            case .storyId(let id): return "/api/v2/stories/\(id)"
-            case .storyUpvote(let id): return "/api/v2/stories/\(id)/upvote"
-            case .storyReply(let id): return "/api/v2/stories/\(id)/reply"
-            case .commentUpvote(let id): return "/api/v2/comments/\(id)/upvote"
-            case .commentReply(let id): return "/api/v2/comments/\(id)/reply"
-            case .comment(let id): return "/api/v2/comments/\(id)"
             case .user(let id): return "/api/v2/users/\(id)"
+            case .storyId(let id): return "/api/v2/stories/\(id)"
+            case .comment(let id): return "/api/v2/comments/\(id)"
+            case .storyReply(let id): return "/api/v2/stories/\(id)/reply"
+            case .storyUpvote(let id): return "/api/v2/stories/\(id)/upvote"
+            case .commentReply(let id): return "/api/v2/comments/\(id)/reply"
+            case .commentUpvote(let id): return "/api/v2/comments/\(id)/upvote"
             }
         }
     }
@@ -54,7 +54,7 @@ struct DNService {
     
     static func storiesForSection(_ section: String, page: Int, completionHandler: @escaping (JSON) -> ()) {
         
-        let urlString = baseURL + ResourcePath.stories.description + "/" + section
+        let urlString = "\(baseURL)\(ResourcePath.stories.description)/\(section)"
         let parameters = [
             "page": String(page),
             "client_id": clientID
@@ -67,7 +67,7 @@ struct DNService {
     
     
     static func profile(byId userId: String, completionHandler: @escaping (JSON) -> ()) {
-        let urlString = baseURL + ResourcePath.user(userId: userId).description
+        let urlString = "\(baseURL)\(ResourcePath.user(userId: userId).description)"
         
         Alamofire.request(urlString, method: .get, parameters: [:]).responseJSON { response in
             let user = JSON(response.result.value ?? [])

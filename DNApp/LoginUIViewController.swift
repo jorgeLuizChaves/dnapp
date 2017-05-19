@@ -12,32 +12,26 @@ import Spring
 class LoginUIViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var dialogView: DesignableView!
+    @IBOutlet weak var emailImageView: SpringImageView!
+    @IBOutlet weak var passwordImageView: SpringImageView!
     @IBOutlet weak var emailTextField: DesignableTextField!
     @IBOutlet weak var passwordTextField: DesignableTextField!
     
-    @IBOutlet weak var passwordImageView: SpringImageView!
-    @IBOutlet weak var emailImageView: SpringImageView!
-
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.delegate = self
         passwordTextField.delegate = self
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func loginButtonDidTouch(_ sender: DesignableButton) {
-        
         self.errorLogin()
-        
     }
     
     @IBAction func closeButtonDidTouch(_ sender: Any) {
-        
         dismiss(animated: true, completion: nil)
         dialogView.animation = "zoomOut"
         dialogView.animate()
     }
-    
     
     private func errorLogin() {
         dialogView.animation = "shake"

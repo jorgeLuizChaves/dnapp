@@ -11,12 +11,13 @@ import Spring
 
 class WebViewController: UIViewController, UIWebViewDelegate {
 
-    @IBOutlet weak var webView: UIWebView!
-    var url: String!
-    var hasFinishedLoading = false
-    
     let oneSecond = 1.0
     let isToRepeat = true
+    
+    var url: String!
+    var hasFinishedLoading = false
+    @IBOutlet weak var webView: UIWebView!
+    
 
     
     @IBOutlet weak var progressView: UIProgressView!
@@ -26,8 +27,6 @@ class WebViewController: UIViewController, UIWebViewDelegate {
         let targetURL = URL(string: url)
         let request = URLRequest(url: targetURL!)
         webView.loadRequest(request)
-        
-        // Do any additional setup after loading the view.
     }
     
     func webViewDidStartLoad(_ webView: UIWebView) {
@@ -84,22 +83,10 @@ class WebViewController: UIViewController, UIWebViewDelegate {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func closeButtonDidTouch(_ sender: Any) {
         UIApplication.shared.isStatusBarHidden = false
         dismiss(animated: true, completion: nil)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

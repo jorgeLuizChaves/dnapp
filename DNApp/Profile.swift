@@ -24,6 +24,4 @@ class Profile: NSObject {
         self.name = name
         self.urlImageProfile = portraitUrl
     }
-    
-
 }

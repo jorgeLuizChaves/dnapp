@@ -128,11 +128,11 @@
                                     <outlet property="upvoteButton" destination="6c3-bI-ebR" id="PyQ-Jo-L7d"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CommentCell" rowHeight="119" id="5nZ-UK-khh" customClass="CommentsTableViewCell" customModule="DNApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="128" width="375" height="119"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CommentCell" id="5nZ-UK-khh" customClass="CommentsTableViewCell" customModule="DNApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="128" width="375" height="140"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5nZ-UK-khh" id="Wbp-Iy-BLd">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="119"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="140"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="F5v-zV-XZx">
@@ -186,28 +186,27 @@
                                                 <action selector="replyButtonDidTouch:" destination="5nZ-UK-khh" eventType="touchUpInside" id="v5r-2I-8u5"/>
                                             </connections>
                                         </button>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="comment" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="yGW-l7-bmm" customClass="AutoTextView" customModule="Spring">
-                                            <rect key="frame" x="35" y="69" width="325" height="38"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UGw-J7-lhZ">
+                                            <rect key="frame" x="23" y="69" width="309" height="52"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.28204314720000001" green="0.28204314720000001" blue="0.28204314720000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                        </textView>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="EwA-UL-XR3" firstAttribute="leading" secondItem="yFr-yQ-3pp" secondAttribute="trailing" id="2mH-7e-7Nc"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="UGw-J7-lhZ" secondAttribute="bottom" constant="11" id="2ne-Za-xqJ"/>
                                         <constraint firstAttribute="trailing" secondItem="Op4-on-O6e" secondAttribute="trailing" constant="45" id="66n-7M-bpW"/>
                                         <constraint firstAttribute="trailing" secondItem="zEi-7f-88a" secondAttribute="trailing" constant="8" id="F0A-Iw-aOw"/>
                                         <constraint firstItem="Op4-on-O6e" firstAttribute="leading" secondItem="F5v-zV-XZx" secondAttribute="trailing" constant="5" id="GbG-Sy-FMk"/>
-                                        <constraint firstItem="yGW-l7-bmm" firstAttribute="top" secondItem="EwA-UL-XR3" secondAttribute="bottom" constant="3" id="HBZ-zR-Ofo"/>
                                         <constraint firstItem="zEi-7f-88a" firstAttribute="top" secondItem="Wbp-Iy-BLd" secondAttribute="top" constant="8" id="IVm-AW-ceZ"/>
                                         <constraint firstItem="F5v-zV-XZx" firstAttribute="leading" secondItem="Wbp-Iy-BLd" secondAttribute="leading" constant="10" id="Ii3-jr-Ujs"/>
                                         <constraint firstItem="F5v-zV-XZx" firstAttribute="top" secondItem="Wbp-Iy-BLd" secondAttribute="top" constant="8" id="LjK-91-ccC"/>
                                         <constraint firstItem="yFr-yQ-3pp" firstAttribute="leading" secondItem="Wbp-Iy-BLd" secondAttribute="leading" constant="25" id="Lq8-CQ-V38"/>
-                                        <constraint firstAttribute="trailing" secondItem="yGW-l7-bmm" secondAttribute="trailing" constant="15" id="Wfc-4m-b2B"/>
-                                        <constraint firstAttribute="bottom" secondItem="yGW-l7-bmm" secondAttribute="bottom" constant="11.5" id="afF-gD-kQs"/>
+                                        <constraint firstItem="UGw-J7-lhZ" firstAttribute="top" secondItem="yFr-yQ-3pp" secondAttribute="bottom" constant="3" id="UHl-2S-I0R"/>
                                         <constraint firstItem="Op4-on-O6e" firstAttribute="top" secondItem="Wbp-Iy-BLd" secondAttribute="top" constant="8" id="ib0-91-7Pq"/>
-                                        <constraint firstItem="yGW-l7-bmm" firstAttribute="leading" secondItem="Wbp-Iy-BLd" secondAttribute="leading" constant="35" id="leE-Tz-G9b"/>
+                                        <constraint firstItem="UGw-J7-lhZ" firstAttribute="leading" secondItem="Wbp-Iy-BLd" secondAttribute="leadingMargin" constant="15" id="jaM-Li-mfa"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="UGw-J7-lhZ" secondAttribute="trailing" constant="35" id="rBj-V8-yw7"/>
                                         <constraint firstItem="EwA-UL-XR3" firstAttribute="top" secondItem="Op4-on-O6e" secondAttribute="bottom" constant="3" id="ruQ-fb-Hax"/>
                                         <constraint firstItem="yFr-yQ-3pp" firstAttribute="top" secondItem="Op4-on-O6e" secondAttribute="bottom" constant="3" id="vWw-E3-jFD"/>
                                     </constraints>
@@ -216,7 +215,7 @@
                                 <connections>
                                     <outlet property="authorLabel" destination="Op4-on-O6e" id="6sA-5c-XIP"/>
                                     <outlet property="avatarImageView" destination="F5v-zV-XZx" id="aez-PD-8qP"/>
-                                    <outlet property="commentTextView" destination="yGW-l7-bmm" id="G2h-p3-Ocb"/>
+                                    <outlet property="commentLabel" destination="UGw-J7-lhZ" id="j26-qL-rWp"/>
                                     <outlet property="replyButton" destination="EwA-UL-XR3" id="LuO-tJ-oEb"/>
                                     <outlet property="timeLabel" destination="zEi-7f-88a" id="gyI-Fi-c0k"/>
                                     <outlet property="upvoteButton" destination="yFr-yQ-3pp" id="GME-RY-kuU"/>

@@ -84,6 +84,9 @@ print(jonh.name)
 var numberX:Int? = 0
 
 
+var testeStringReplace = "Brasil\n".replacingOccurrences(of: "\n", with: "")
+
+
 
 
 
