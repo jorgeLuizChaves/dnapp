@@ -12,6 +12,7 @@ import Alamofire
 
 struct DNService {
     
+    private static let grantType = "password"
     private static let baseURL = "https://www.designernews.co"
     private static let clientID = "750ab22aac78be1c6d4bbe584f0e3477064f646720f327c5464bc127100a1a6d"
     private static let clientSecret = "53e3822c49287190768e009a8f8e55d09041c5bf26d0ef982693f215c72d87da"
@@ -73,7 +74,33 @@ struct DNService {
             let user = JSON(response.result.value ?? [])
             completionHandler(user)
         }
-        
-        
     }
+    
+    static func loginWithEmail(login: String, password: String, completionHandler: @escaping (String?) -> ()) {
+        let urlString = "\(baseURL)\(ResourcePath.login.description)"
+        
+        let parameters = [
+        "grant_type": grantType,
+        "username": login,
+        "password": password
+        ]
+        
+        Alamofire.request(urlString, method: .post, parameters: parameters).responseJSON { response in
+            let auth = JSON(response.result.value ?? [])
+            completionHandler(auth["access_token"].string)
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

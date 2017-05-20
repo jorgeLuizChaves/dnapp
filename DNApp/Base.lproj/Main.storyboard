@@ -388,6 +388,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
                     <connections>
+                        <outlet property="loginBarButtonItem" destination="nH8-yc-PSj" id="Kay-Ro-thD"/>
                         <segue destination="TwE-fC-G2z" kind="presentation" identifier="menuSegue" animates="NO" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="qOb-rL-6jx"/>
                         <segue destination="5sD-en-9Xj" kind="presentation" identifier="loginSegue" animates="NO" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="tRY-vo-Q9R"/>
                         <segue destination="WFG-up-bIe" kind="show" identifier="commentsSegue" id="HDB-Ck-VPb"/>
@@ -842,7 +843,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SjN-BC-CcF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3737.1814092953528" y="-685.60000000000002"/>
+            <point key="canvasLocation" x="-2537" y="-653"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="xUx-XI-mw9">
@@ -1009,6 +1010,8 @@
                     </view>
                     <connections>
                         <outlet property="dialogView" destination="r9U-3i-BuQ" id="fuD-fy-sTY"/>
+                        <outlet property="loginLabel" destination="oEH-0H-NrS" id="Gd1-zc-Svt"/>
+                        <segue destination="5sD-en-9Xj" kind="presentation" identifier="LoginSegue" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="yK6-sB-JAn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VdX-3W-ya2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1039,5 +1042,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="YqY-t9-HLx"/>
+        <segue reference="yK6-sB-JAn"/>
     </inferredMetricsTieBreakers>
 </document>
