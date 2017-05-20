@@ -12,12 +12,19 @@ import Spring
 class MenuViewController: UIViewController, UITextViewDelegate {
     
     weak var delegate: MenuViewControllerDelegate?
+    @IBOutlet weak var loginLabel: UILabel!
 
 
     @IBOutlet weak var dialogView: DesignableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let _ = LocalStore.getToken() {
+            loginLabel.text = "Logout"
+        }else {
+            loginLabel.text = "Login"
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,7 +44,13 @@ class MenuViewController: UIViewController, UITextViewDelegate {
     
     
     @IBAction func loginButtonDidTouch(_ sender: Any) {
-        performSegue(withIdentifier: "LoginSegue", sender: self)
+        if let _ = LocalStore.getToken() {
+            LocalStore.deleteToken()
+            closeButtonDidTouch(sender)
+            delegate?.menuViewControllerDidTouchLogout(self)
+        }else {
+            performSegue(withIdentifier: "LoginSegue", sender: self)
+        }
     }
     
     
@@ -56,4 +69,5 @@ class MenuViewController: UIViewController, UITextViewDelegate {
 protocol MenuViewControllerDelegate: class {
     func menuViewControllerDidTouchTop(_ controller: MenuViewController)
     func menuViewControllerDidTouchRecent(_ controller: MenuViewController)
+    func menuViewControllerDidTouchLogout(_ controller: MenuViewController)
 }

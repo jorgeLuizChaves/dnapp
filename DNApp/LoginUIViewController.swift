@@ -17,6 +17,8 @@ class LoginUIViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var emailTextField: DesignableTextField!
     @IBOutlet weak var passwordTextField: DesignableTextField!
     
+    weak var delegate : LoginViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.delegate = self
@@ -24,7 +26,20 @@ class LoginUIViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func loginButtonDidTouch(_ sender: DesignableButton) {
-        self.errorLogin()
+        sender.animation = "pop"
+        sender.force = 0.1
+        sender.animate()
+        if let login = emailTextField.text, let password = passwordTextField.text {
+            DNService.loginWithEmail(login: login, password: password) { (jsonToken) in
+                if let token = jsonToken {
+                    LocalStore.saveToken(token)
+                    self.delegate?.loginViewControllerDidLogin(self)
+                    self.dismiss(animated: true, completion: nil)
+                }else {
+                    self.errorLogin()
+                }
+            }
+        }
     }
     
     @IBAction func closeButtonDidTouch(_ sender: Any) {
@@ -59,4 +74,8 @@ class LoginUIViewController: UIViewController, UITextFieldDelegate {
         emailImageView.image = UIImage(named: "icon-mail")
         passwordImageView.image = UIImage(named: "icon-password")
     }
+}
+
+protocol LoginViewControllerDelegate: class {
+    func loginViewControllerDidLogin(_ controller: LoginUIViewController)
 }

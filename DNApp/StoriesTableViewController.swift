@@ -10,9 +10,11 @@ import UIKit
 import Spring
 import SwiftyJSON
 
-class StoriesTableViewController: UITableViewController, StoryTableViewCellDelegate, MenuViewControllerDelegate {
+class StoriesTableViewController: UITableViewController,
+        StoryTableViewCellDelegate, MenuViewControllerDelegate, LoginViewControllerDelegate {
     
     let transitionManager = TransitionManager()
+    @IBOutlet weak var loginBarButtonItem: UIBarButtonItem!
     
     var section = ""
     var isFirstTime = true
@@ -21,6 +23,8 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        layoutLoginValidation()
+        
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         loadStories("", page: 1)
@@ -65,6 +69,12 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    //MARK: LoginViewController
+    func loginViewControllerDidLogin(_ controller: LoginUIViewController) {
+         loadStories("", page: 1)
+        view.showLoading()
+    }
+    
     
     
     // MARK: Events Touches
@@ -101,6 +111,11 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
         navigationItem.title = "Recent Stories"
     }
     
+    func menuViewControllerDidTouchLogout(_ controller: MenuViewController) {
+        view.showLoading()
+        loadStories("", page: 1)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "commentsSegue" {
             let toView = segue.destination as! CommentsTableViewController
@@ -123,9 +138,27 @@ class StoriesTableViewController: UITableViewController, StoryTableViewCellDeleg
             let toView = segue.destination as! MenuViewController
             toView.delegate = self
         }
+        
+        if segue.identifier == "loginSegue" {
+            let toView = segue.destination as! LoginUIViewController
+            toView.delegate = self
+        }
+    }
+    
+    func layoutLoginValidation() {
+        if let _ = LocalStore.getToken() {
+            loginBarButtonItem.title = ""
+            loginBarButtonItem.isEnabled = false
+        }else {
+            loginBarButtonItem.title = "Login"
+            loginBarButtonItem.isEnabled = true
+        }
     }
     
     func loadStories(_ section: String, page: Int) {
+        
+        layoutLoginValidation()
+        
         self.stories = []
         self.tableView.reloadData()
         DNService.storiesForSection(section, page: page) { (JSON) -> () in
