@@ -1009,6 +1009,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="closeButton" destination="QHn-bT-mKn" id="cab-Oa-LVv"/>
                         <outlet property="dialogView" destination="r9U-3i-BuQ" id="fuD-fy-sTY"/>
                         <outlet property="loginLabel" destination="oEH-0H-NrS" id="Gd1-zc-Svt"/>
                         <segue destination="5sD-en-9Xj" kind="presentation" identifier="LoginSegue" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="yK6-sB-JAn"/>

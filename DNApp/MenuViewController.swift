@@ -9,10 +9,11 @@
 import UIKit
 import Spring
 
-class MenuViewController: UIViewController, UITextViewDelegate {
+class MenuViewController: UIViewController, UITextViewDelegate, LoginViewControllerDelegate {
     
     weak var delegate: MenuViewControllerDelegate?
     @IBOutlet weak var loginLabel: UILabel!
+    @IBOutlet weak var closeButton: UIButton!
 
 
     @IBOutlet weak var dialogView: DesignableView!
@@ -51,6 +52,19 @@ class MenuViewController: UIViewController, UITextViewDelegate {
         }else {
             performSegue(withIdentifier: "LoginSegue", sender: self)
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "LoginSegue" {
+            let toView = segue.destination as! LoginUIViewController
+            toView.delegate = self
+        }
+    }
+    
+    func loginViewControllerDidLogin(_ controller: LoginUIViewController) {
+        delegate?.menuViewControllerDidTouchLogout(self)
+        closeButton.sendActions(for: .touchUpInside)
+        
     }
     
     
