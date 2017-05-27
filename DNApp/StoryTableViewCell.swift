@@ -40,9 +40,14 @@ class StoryTableViewCell: UITableViewCell {
         self.profileImageView.url = NSURL(string: story.profile?.urlImageProfile ?? "")
         self.profileImageView.placeholderImage = UIImage(named: "content-avatar-default")
         
+        
         self.timeLabel.text = timeAgoSinceDate(date: dateFromString(date: story.createdAt, format: timeZoneFormat), numericDates: true)
         
-        self.upvoteButton.setTitle(String(story.voteCount), for: UIControlState.normal)
+        if(story.isUpvoted){
+            self.upvoteButton.setImage(UIImage(named: "icon-upvote-active"), for: .normal)
+        }else {
+            self.upvoteButton.setTitle(String(story.voteCount), for: UIControlState.normal)
+        }
         self.commentButton.setTitle(String(story.commentsIds.count), for: UIControlState.normal)
         
         

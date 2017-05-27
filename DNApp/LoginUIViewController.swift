@@ -32,7 +32,15 @@ class LoginUIViewController: UIViewController, UITextFieldDelegate {
         if let login = emailTextField.text, let password = passwordTextField.text {
             DNService.loginWithEmail(login: login, password: password) { (jsonToken) in
                 if let token = jsonToken {
-                    LocalStore.saveToken(token)
+                    let tokenString = String(token)
+                    LocalStore.saveToken(tokenString!)
+                    DNService.me(byToken: tokenString!, completionHandler: { jsonUser in
+                        print(jsonUser?.rawValue ?? "vazio")
+                            let userId = jsonUser?["id"].rawValue as! String
+                            let upvotes = jsonUser?["links"]["upvotes"].rawValue as! [String]
+                            LocalStore.saveUserId(userId)
+                            LocalStore.saveUpvotes(upvotes)
+                    })
                     self.delegate?.loginViewControllerDidLogin(self)
                     self.dismiss(animated: true, completion: nil)
                 }else {

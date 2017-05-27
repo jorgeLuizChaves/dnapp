@@ -18,36 +18,38 @@ struct DNService {
     private static let clientSecret = "53e3822c49287190768e009a8f8e55d09041c5bf26d0ef982693f215c72d87da"
     
     private enum ResourcePath: CustomStringConvertible {
+        case me
         case login
         case stories
         case user(userId: String)
         case storyId(storyId: Int)
         case storyReply(storyId: Int)
-        case storyUpvote(storyId: Int)
-        case commentReply(commentId: Int)
+        case storyUpvote
+        case commentReply(commentId: String)
         case comment(commentId: String)
-        case commentUpvote(commentId: Int)
+        case commentUpvote(commentId: String)
         
         var description: String {
             switch self {
+            case .me: return "/api/v2/me"
             case .login: return "/oauth/token"
             case .stories: return "/api/v2/stories"
             case .user(let id): return "/api/v2/users/\(id)"
             case .storyId(let id): return "/api/v2/stories/\(id)"
             case .comment(let id): return "/api/v2/comments/\(id)"
             case .storyReply(let id): return "/api/v2/stories/\(id)/reply"
-            case .storyUpvote(let id): return "/api/v2/stories/\(id)/upvote"
+            case .storyUpvote: return "/api/v2/upvotes"
             case .commentReply(let id): return "/api/v2/comments/\(id)/reply"
             case .commentUpvote(let id): return "/api/v2/comments/\(id)/upvote"
             }
         }
     }
     
+    
     static func comment(byId commentId: String, completionHandler: @escaping (JSON) -> ()) {
         let urlString = baseURL + ResourcePath.comment(commentId: commentId).description
         Alamofire.request(urlString, method: .get, parameters: [:]).responseJSON { res in
             let comment = JSON(res.result.value ?? "")
-            print(comment)
             completionHandler(comment)
         }
 
@@ -91,16 +93,40 @@ struct DNService {
         }
     }
     
+    static func upvoteStoryWithId(_ story: Story, userId: String, token: String, completion: @escaping (_ successful: Bool) -> Void) {
+        let urlString = baseURL + ResourcePath.storyUpvote.description
+        upvoteWithUrlString(urlString, story: story,userId: userId, token: token, completion: completion)
+    }
     
+    static func me(byToken token: String, completionHandler: @escaping (JSON?) -> ()) {
+        let urlString = "\(baseURL)\(ResourcePath.me.description)"
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)",
+        ]
+        
+        Alamofire.request(urlString, method: .get, headers: headers).responseJSON { response in
+            let jsonUser = JSON(response.result.value ?? [])
+            completionHandler(jsonUser["users"][0])
+        }
+        
+    }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    private static func upvoteWithUrlString(_ urlString: String, story: Story, userId: String, token: String, completion: @escaping (_ successful: Bool) -> Void) {
+        let url = URL(string: urlString)!
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)",
+            "Content-Type": "application/vnd.api+json"
+        ]
+        
+        let parameters = [
+            "upvotes" : [
+                "links" : ["story" : String(story.id), "user" : String(userId)]
+            ]
+        ]
+                
+        Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
+            let successful = response.response?.statusCode == 201
+            completion(successful)
+        }
+    }
 }

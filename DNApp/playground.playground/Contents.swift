@@ -1,6 +1,7 @@
 //: Playground - noun: a place where people can play
 
 import UIKit
+import SwiftyJSON
 
 var str = "Hello, playground"
 
@@ -85,6 +86,24 @@ var numberX:Int? = 0
 
 
 var testeStringReplace = "Brasil\n".replacingOccurrences(of: "\n", with: "")
+
+
+let storyUpvotes = [9, 11,1,2,3,4,5]
+let userUpvotes = [ 8, 90, 75, 119]
+
+let setStory = Set(storyUpvotes.sorted())
+let setUser = Set(userUpvotes.sorted())
+
+
+
+let resultSet = setStory.intersection(setUser)
+resultSet.count
+
+let jsonA = JSON([JSON(123),JSON(123)])
+
+let convertA = jsonA.rawValue
+
+
 
 
 
