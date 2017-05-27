@@ -40,6 +40,7 @@ struct LocalStore {
         userDefaults.removeObject(forKey: userIdKey)
     }
     
+    
     static func saveUpvotes(_ upvotes: [String]?) {
         userDefaults.set(upvotes, forKey: upvotesKey)
     }
@@ -54,20 +55,11 @@ struct LocalStore {
     static func deleteUpvotes() {
         userDefaults.removeObject(forKey: upvotesKey)
     }
-}
-
-
-extension JSON: Hashable {
-    public /// The hash value.
-    ///
-    /// Hash values are not guaranteed to be equal across different executions of
-    /// your program. Do not save hash values to use during a future execution.
-    var hashValue: Int {
-        return 9
-    }
-
     
-    static func == (json1: JSON, json2: JSON) -> Bool {
-        return json1.arrayValue == json2.arrayValue
+    static func addStoryUpvotes(upvoteId: String){
+        var elements = userDefaults.array(forKey: upvotesKey) as? [String] ?? []
+        if(!elements.contains(upvoteId)){
+            elements.append(upvoteId)
+        }
     }
 }
