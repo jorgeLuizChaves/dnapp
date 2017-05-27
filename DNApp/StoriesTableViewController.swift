@@ -98,8 +98,10 @@ class StoriesTableViewController: UITableViewController,
         if let token = LocalStore.getToken(), let userId = LocalStore.getUserId() {
             let indexPath = tableView.indexPath(for: cell)!
             let story = stories[indexPath.row]
-            DNService.upvoteStoryWithId(story, userId: userId, token: token, completion: { (successful) in
-                    if successful {
+            DNService.upvoteStoryWithId(story, userId: userId, token: token, completion: { (res) in
+                    if let upvoteId = res?["upvotes"][0]["id"].string {
+                        print("JORGE \(upvoteId)" )
+                        LocalStore.addStoryUpvotes(upvoteId: upvoteId)
                         cell.upvoteButton.setImage(UIImage(named: "icon-upvote-active"), for: .normal)
                         cell.upvoteButton.setTitle(String(story.voteCount + 1), for: .normal)
                     }

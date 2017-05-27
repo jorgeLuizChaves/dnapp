@@ -107,6 +107,13 @@ let convertA = jsonA.rawValue
 
 
 
+var list: [Int] = [1,2,3]
+
+
+
+list.append(4)
+
+
 
 
 

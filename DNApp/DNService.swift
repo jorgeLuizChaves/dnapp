@@ -93,7 +93,7 @@ struct DNService {
         }
     }
     
-    static func upvoteStoryWithId(_ story: Story, userId: String, token: String, completion: @escaping (_ successful: Bool) -> Void) {
+    static func upvoteStoryWithId(_ story: Story, userId: String, token: String, completion: @escaping (_ successful: JSON?) -> Void) {
         let urlString = baseURL + ResourcePath.storyUpvote.description
         upvoteWithUrlString(urlString, story: story,userId: userId, token: token, completion: completion)
     }
@@ -111,7 +111,7 @@ struct DNService {
         
     }
     
-    private static func upvoteWithUrlString(_ urlString: String, story: Story, userId: String, token: String, completion: @escaping (_ successful: Bool) -> Void) {
+    private static func upvoteWithUrlString(_ urlString: String, story: Story, userId: String, token: String, completion: @escaping (_ successful: JSON?) -> Void) {
         let url = URL(string: urlString)!
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(token)",
@@ -125,8 +125,9 @@ struct DNService {
         ]
                 
         Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
-            let successful = response.response?.statusCode == 201
-            completion(successful)
+            print(response)
+//            let successful = response.response?.statusCode == 201
+            completion(JSON(response.result.value ?? []))
         }
     }
 }
