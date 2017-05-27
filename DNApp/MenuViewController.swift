@@ -47,6 +47,7 @@ class MenuViewController: UIViewController, UITextViewDelegate, LoginViewControl
     @IBAction func loginButtonDidTouch(_ sender: Any) {
         if let _ = LocalStore.getToken() {
             LocalStore.deleteToken()
+            LocalStore.deleteUpvotes()
             closeButtonDidTouch(sender)
             delegate?.menuViewControllerDidTouchLogout(self)
         }else {

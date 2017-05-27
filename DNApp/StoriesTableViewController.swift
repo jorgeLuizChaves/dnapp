@@ -13,8 +13,15 @@ import SwiftyJSON
 class StoriesTableViewController: UITableViewController,
         StoryTableViewCellDelegate, MenuViewControllerDelegate, LoginViewControllerDelegate {
     
-    let transitionManager = TransitionManager()
     @IBOutlet weak var loginBarButtonItem: UIBarButtonItem!
+    
+    let webSegue = "WebSegue"
+    let menuSegue = "menuSegue"
+    let loginSegue = "loginSegue"
+    let commentSegue = "commentsSegue"
+    let storyCellIdentifier = "StoryCell"
+    let transitionManager = TransitionManager()
+    
     
     var section = ""
     var isFirstTime = true
@@ -55,7 +62,7 @@ class StoriesTableViewController: UITableViewController,
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "StoryCell") as! StoryTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: storyCellIdentifier) as! StoryTableViewCell
         
         let story = stories[indexPath.row]
         cell.delegate = self
@@ -65,7 +72,7 @@ class StoriesTableViewController: UITableViewController,
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "WebSegue", sender: indexPath)
+        performSegue(withIdentifier: webSegue, sender: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -79,20 +86,31 @@ class StoriesTableViewController: UITableViewController,
     
     // MARK: Events Touches
     @IBAction func loginButtonDidTouch(_ sender: Any) {
-        performSegue(withIdentifier: "loginSegue", sender: self)
+        performSegue(withIdentifier: loginSegue, sender: self)
     }
 
     @IBAction func menuButtonDidTouch(_ sender: Any) {
-        performSegue(withIdentifier: "menuSegue", sender: self)
+        performSegue(withIdentifier: menuSegue, sender: self)
     }
     
     // MARK: StoryTableViewCellDelegate
     func storyTableViewCellDidTouchUpvote(_ cell: StoryTableViewCell, sender: Any) {
-        //TODO: Implement Upvote
+        if let token = LocalStore.getToken(), let userId = LocalStore.getUserId() {
+            let indexPath = tableView.indexPath(for: cell)!
+            let story = stories[indexPath.row]
+            DNService.upvoteStoryWithId(story, userId: userId, token: token, completion: { (successful) in
+                    if successful {
+                        cell.upvoteButton.setImage(UIImage(named: "icon-upvote-active"), for: .normal)
+                        cell.upvoteButton.setTitle(String(story.voteCount + 1), for: .normal)
+                    }
+                })
+        }else {
+            performSegue(withIdentifier: loginSegue, sender: self)
+        }
     }
     
     func storyTableViewCellDidTouchComment(_ cell: StoryTableViewCell, sender: Any) {
-        performSegue(withIdentifier: "commentsSegue", sender: cell)
+        performSegue(withIdentifier: commentSegue, sender: cell)
 
     }
     
@@ -117,14 +135,14 @@ class StoriesTableViewController: UITableViewController,
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "commentsSegue" {
+        if segue.identifier == commentSegue {
             let toView = segue.destination as! CommentsTableViewController
             let indexPath = tableView.indexPath(for: sender as! UITableViewCell)!
             let story = stories[indexPath.row]
             toView.story = story
         }
         
-        if segue.identifier == "WebSegue" {
+        if segue.identifier == webSegue {
             let toView = segue.destination as! WebViewController
             let indexPath = sender as! IndexPath
             let story = stories[indexPath.row]
@@ -134,12 +152,12 @@ class StoriesTableViewController: UITableViewController,
             toView.transitioningDelegate = transitionManager
         }
         
-        if segue.identifier == "menuSegue" {
+        if segue.identifier == menuSegue {
             let toView = segue.destination as! MenuViewController
             toView.delegate = self
         }
         
-        if segue.identifier == "loginSegue" {
+        if segue.identifier == loginSegue {
             let toView = segue.destination as! LoginUIViewController
             toView.delegate = self
         }
