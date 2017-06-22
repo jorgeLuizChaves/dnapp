@@ -13,6 +13,7 @@ import SwiftyJSON
 class CommentsTableViewCell: UITableViewCell {
     
     let timeZoneFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+    weak var delegate: CommentsTableViewCellDelegate?
     
     
     @IBOutlet weak var avatarImageView: AsyncImageView!
@@ -36,7 +37,10 @@ class CommentsTableViewCell: UITableViewCell {
     
     
     @IBAction func upvoteButtonDidTouch(_ sender: SpringButton) {
-        
+        sender.animation = "pop"
+        sender.force = 1
+        sender.animate()
+        delegate?.commentTableViewCellDidTouchUpvote(self, sender: sender)
     }
     
     
@@ -52,12 +56,24 @@ class CommentsTableViewCell: UITableViewCell {
         let voteCount = comment.voteCount
         let userDisplayName = comment.profile.name
         
-//        commentTextView.attributedText = htmlToAttributedString(text:"\(bodyHTML)<style>*{font-family:\"Avenir Next\";font-size:16px;line-height:20px}img{max-width:300px}</style>")
-        
         avatarImageView.image = UIImage(named: "content-avatar-default")
         authorLabel.text = "\(userDisplayName), \(userJob)"
         timeLabel.text = timeAgoSinceDate(date: dateFromString(date: createdAt, format: timeZoneFormat), numericDates: true)
         upvoteButton.setTitle(String(voteCount), for: UIControlState.normal)
         commentLabel.text = body
+        
+        //TODO VALIDATE COMMENT WAS UPVOTED
+//        if(story.isUpvoted){
+//            self.upvoteButton.setImage(UIImage(named: "icon-upvote-active"), for: .normal)
+//        }else {
+//            self.upvoteButton.setImage(UIImage(named: "icon-upvote"), for: .normal)
+//        }
+        
+        
     }
+}
+
+
+protocol CommentsTableViewCellDelegate: class {
+    func commentTableViewCellDidTouchUpvote(_ cell: CommentsTableViewCell, sender: Any)
 }

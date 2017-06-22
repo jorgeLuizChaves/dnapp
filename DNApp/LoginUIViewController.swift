@@ -35,7 +35,6 @@ class LoginUIViewController: UIViewController, UITextFieldDelegate {
                     let tokenString = String(token)
                     LocalStore.saveToken(tokenString!)
                     DNService.me(byToken: tokenString!, completionHandler: { jsonUser in
-                        print(jsonUser?.rawValue ?? "vazio")
                             let userId = jsonUser?["id"].rawValue as! String
                             let upvotes = jsonUser?["links"]["upvotes"].rawValue as! [String]
                             LocalStore.saveUserId(userId)
