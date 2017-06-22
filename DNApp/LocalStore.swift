@@ -14,6 +14,7 @@ struct LocalStore {
     private static let tokenKey = "tokenKey"
     private static let userIdKey = "userIdKey"
     private static let upvotesKey = "upvotesKey"
+    
     static let userDefaults = UserDefaults.standard
     
     static func saveToken(_ token: String) {

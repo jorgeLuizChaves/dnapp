@@ -12,6 +12,8 @@ import SwiftyJSON
 
 class StoryTableViewCell: UITableViewCell {
     
+    let popAnimation = "pop"
+    let forceIteraction = CGFloat(3)
     let timeZoneFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
     
     @IBOutlet weak var timeLabel: UILabel!
@@ -33,9 +35,10 @@ class StoryTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func configureWithStory(_ story: Story) {
+    func configureWithStory(_ story: Story, isCommentEnable: Bool = true) {
         self.titleLabel.text = story.title
         self.authorLabel.text = story.profile?.name
+        self.commentButton.isEnabled = isCommentEnable
         self.badgeImageView.image = UIImage(named: "badge-\(story.badge)")
         self.profileImageView.url = NSURL(string: story.profile?.urlImageProfile ?? "")
         self.profileImageView.placeholderImage = UIImage(named: "content-avatar-default")
@@ -46,8 +49,9 @@ class StoryTableViewCell: UITableViewCell {
         if(story.isUpvoted){
             self.upvoteButton.setImage(UIImage(named: "icon-upvote-active"), for: .normal)
         }else {
-            self.upvoteButton.setTitle(String(story.voteCount), for: UIControlState.normal)
+            self.upvoteButton.setImage(UIImage(named: "icon-upvote"), for: .normal)
         }
+        self.upvoteButton.setTitle(String(story.voteCount), for: UIControlState.normal)
         self.commentButton.setTitle(String(story.commentsIds.count), for: UIControlState.normal)
         
         
@@ -57,19 +61,21 @@ class StoryTableViewCell: UITableViewCell {
     }
     
     @IBAction func upvoteButtonDidTouch(_ sender: Any) {
-        upvoteButton.animation = "pop"
-        upvoteButton.force = 3
-        upvoteButton.animate()
+        configure(button: upvoteButton)
         delegate?.storyTableViewCellDidTouchUpvote(self, sender: sender)
 
     }
     
     @IBAction func commentButtonDidTouch(_ sender: Any) {
-        commentButton.animation = "pop"
-        commentButton.force = 3
-        commentButton.animate()
+        configure(button: commentButton)
         delegate?.storyTableViewCellDidTouchComment(self, sender: sender)
 
+    }
+    
+    private func configure(button: SpringButton) {
+        button.animation = popAnimation
+        button.force = forceIteraction
+        button.animate()
     }
     
 }

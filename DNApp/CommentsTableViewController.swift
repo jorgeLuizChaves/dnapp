@@ -9,11 +9,14 @@
 import UIKit
 import SwiftyJSON
 
-class CommentsTableViewController: UITableViewController {
+class CommentsTableViewController: UITableViewController, CommentsTableViewCellDelegate, StoryTableViewCellDelegate,
+LoginViewControllerDelegate{
     
     var story: Story!
     var comments = [Comment]()
     var isLoadFinished = false
+    let loginSegue = "loginSegue"
+    weak var delegate: CommentsTableViewDelegate?
     
     
     override func viewDidLoad() {
@@ -38,18 +41,55 @@ class CommentsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as UITableViewCell!
         
         if let storyCell = cell as? StoryTableViewCell{
-            storyCell.configureWithStory(story)
+            storyCell.configureWithStory(story, isCommentEnable: false)
+            storyCell.delegate = self
             return storyCell
         }else {
             let commentCell = cell as! CommentsTableViewCell
             if comments.count > 0 {
                 let comment = comments[indexPath.row - 1]
                 commentCell.configureWithComment(comment)
+                commentCell.delegate = self
             }
             return commentCell
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == loginSegue {
+            let toView = segue.destination as! LoginUIViewController
+            toView.delegate = self
+        }
+    }
+    
+    func commentTableViewCellDidTouchUpvote(_ cell: CommentsTableViewCell, sender: Any) {
+        print("comment upvote")
+        if let _ = LocalStore.getToken() {
+            print("teste")
+            
+        }else {
+            performSegue(withIdentifier: loginSegue, sender: self)
+        }
+    }
+    
+    func storyTableViewCellDidTouchUpvote(_ cell: StoryTableViewCell, sender: Any) {
+        if let _ = LocalStore.getToken() {
+            print("teste")
+        }else {
+            performSegue(withIdentifier: loginSegue, sender: self)
+        }
+    }
+    
+    func storyTableViewCellDidTouchComment(_ cell: StoryTableViewCell, sender: Any) {
+        
+    }
+    
+    //MARK: delegate LoginUIViewController
+    func loginViewControllerDidLogin(_ controller: LoginUIViewController) {
+        delegate?.commentTableViewLogin(self)
+    }
+    
+    //MARK: private functions
     private func loadComment(_ story: Story){
         self.view.showLoading()
         
@@ -78,4 +118,9 @@ class CommentsTableViewController: UITableViewController {
                 })
         }
     }
+}
+
+
+protocol CommentsTableViewDelegate : class {
+    func commentTableViewLogin(_ controller: CommentsTableViewController)
 }

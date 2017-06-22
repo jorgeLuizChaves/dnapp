@@ -11,7 +11,8 @@ import Spring
 import SwiftyJSON
 
 class StoriesTableViewController: UITableViewController,
-        StoryTableViewCellDelegate, MenuViewControllerDelegate, LoginViewControllerDelegate {
+        StoryTableViewCellDelegate, MenuViewControllerDelegate, LoginViewControllerDelegate,
+CommentsTableViewDelegate{
     
     @IBOutlet weak var loginBarButtonItem: UIBarButtonItem!
     
@@ -76,13 +77,11 @@ class StoriesTableViewController: UITableViewController,
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    //MARK: LoginViewController
+    //MARK: Delegate LoginViewController
     func loginViewControllerDidLogin(_ controller: LoginUIViewController) {
          loadStories("", page: 1)
         view.showLoading()
     }
-    
-    
     
     // MARK: Events Touches
     @IBAction func loginButtonDidTouch(_ sender: Any) {
@@ -100,7 +99,6 @@ class StoriesTableViewController: UITableViewController,
             let story = stories[indexPath.row]
             DNService.upvoteStoryWithId(story, userId: userId, token: token, completion: { (res) in
                     if let upvoteId = res?["upvotes"][0]["id"].string {
-                        print("JORGE \(upvoteId)" )
                         LocalStore.addStoryUpvotes(upvoteId: upvoteId)
                         cell.upvoteButton.setImage(UIImage(named: "icon-upvote-active"), for: .normal)
                         cell.upvoteButton.setTitle(String(story.voteCount + 1), for: .normal)
@@ -141,6 +139,7 @@ class StoriesTableViewController: UITableViewController,
             let toView = segue.destination as! CommentsTableViewController
             let indexPath = tableView.indexPath(for: sender as! UITableViewCell)!
             let story = stories[indexPath.row]
+            toView.delegate = self
             toView.story = story
         }
         
@@ -163,6 +162,10 @@ class StoriesTableViewController: UITableViewController,
             let toView = segue.destination as! LoginUIViewController
             toView.delegate = self
         }
+    }
+    
+    func commentTableViewLogin(_ controller: CommentsTableViewController) {
+        self.layoutLoginValidation()
     }
     
     func layoutLoginValidation() {
