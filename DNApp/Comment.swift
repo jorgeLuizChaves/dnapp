@@ -13,19 +13,19 @@ class Comment: NSObject {
     
     let id: String
     let body: String
-    let profile: Profile
-    let bodyHTML: String
     let voteCount: Int
+    let bodyHTML: String
+    let profile: Profile
     let createdAt : String
     let userPortraitUrl: String
     
     init(jsonComment: JSON, profile: Profile) {
+        self.profile = profile
         self.id = jsonComment["id"].string ?? ""
         self.body = jsonComment["body"].string ?? ""
-        self.bodyHTML = jsonComment["body_html"].string ?? ""
         self.voteCount = jsonComment["comment_upvotes"].count
+        self.bodyHTML = jsonComment["body_html"].string ?? ""
         self.createdAt = jsonComment["created_at"].string ?? ""
-        self.profile = profile
         self.userPortraitUrl = jsonComment["user_portrait_url"].string ?? ""
     }
 }

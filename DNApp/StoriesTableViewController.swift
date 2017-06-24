@@ -68,13 +68,23 @@ CommentsTableViewDelegate{
         let story = stories[indexPath.row]
         cell.delegate = self
         cell.configureWithStory(story)
+        cell.selectionStyle = .none
         return cell
     }
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: webSegue, sender: indexPath)
-        tableView.deselectRow(at: indexPath, animated: true)
+        let story = stories[indexPath.row]
+        if let _ = story.storyUrl {
+            performSegue(withIdentifier: webSegue, sender: indexPath)
+            tableView.deselectRow(at: indexPath, animated: true)
+        }else {
+            let alertController = UIAlertController(title: "Ooopss", message: "There's no link to access, sorry :(", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alertController.addAction(alertAction)
+            present(alertController, animated: true, completion: nil)
+        }
+
     }
     
     //MARK: Delegate LoginViewController
