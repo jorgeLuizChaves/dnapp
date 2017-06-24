@@ -69,7 +69,7 @@ LoginViewControllerDelegate{
             if let index = indexPath {
                 let comment = comments[index.row - 1]
                 DNService.upvote(comment: comment, userId: userId, completion: { res in
-                    if let commentUpvotes = res?["comment_upvotes"][0]["id"].string {
+                    if let _ = res?["comment_upvotes"][0]["id"].string {
                         cell.likeComment()
                     }else{
                         cell.unlikeComment()
