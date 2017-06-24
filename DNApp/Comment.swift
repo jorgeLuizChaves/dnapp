@@ -11,6 +11,7 @@ import SwiftyJSON
 
 class Comment: NSObject {
     
+    let id: String
     let body: String
     let profile: Profile
     let bodyHTML: String
@@ -19,6 +20,7 @@ class Comment: NSObject {
     let userPortraitUrl: String
     
     init(jsonComment: JSON, profile: Profile) {
+        self.id = jsonComment["id"].string ?? ""
         self.body = jsonComment["body"].string ?? ""
         self.bodyHTML = jsonComment["body_html"].string ?? ""
         self.voteCount = jsonComment["comment_upvotes"].count

@@ -64,9 +64,18 @@ LoginViewControllerDelegate{
     
     func commentTableViewCellDidTouchUpvote(_ cell: CommentsTableViewCell, sender: Any) {
         print("comment upvote")
-        if let _ = LocalStore.getToken() {
-            print("teste")
-            
+        if let _ = LocalStore.getToken(), let userId = LocalStore.getUserId() {
+            let indexPath = tableView.indexPath(for: cell)
+            if let index = indexPath {
+                let comment = comments[index.row - 1]
+                DNService.upvote(comment: comment, userId: userId, completion: { res in
+                    if let commentUpvotes = res?["comment_upvotes"][0]["id"].string {
+                        cell.likeComment()
+                    }else{
+                        cell.unlikeComment()
+                    }
+                })
+            }
         }else {
             performSegue(withIdentifier: loginSegue, sender: self)
         }

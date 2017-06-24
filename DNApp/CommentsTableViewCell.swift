@@ -34,15 +34,12 @@ class CommentsTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    
-    
     @IBAction func upvoteButtonDidTouch(_ sender: SpringButton) {
         sender.animation = "pop"
         sender.force = 1
         sender.animate()
         delegate?.commentTableViewCellDidTouchUpvote(self, sender: sender)
     }
-    
     
     @IBAction func replyButtonDidTouch(_ sender: SpringButton) {
         
@@ -68,8 +65,25 @@ class CommentsTableViewCell: UITableViewCell {
 //        }else {
 //            self.upvoteButton.setImage(UIImage(named: "icon-upvote"), for: .normal)
 //        }
-        
-        
+    }
+    
+    func likeComment() {
+        let countVoteNumber = Int((upvoteButton.titleLabel?.text)!) ?? 0
+        let voteCount = (countVoteNumber + 1)
+        upvoteButton.setTitle(String(voteCount), for: UIControlState.normal)
+        self.upvoteButton.setImage(UIImage(named: "icon-upvote-active"), for: .normal)
+    }
+    
+    func unlikeComment() {
+        let countVoteNumber = Int((upvoteButton.titleLabel?.text)!) ?? 0
+        var voteCount: Int
+        if(countVoteNumber > 0) {
+            voteCount = (countVoteNumber - 1)
+        }else{
+            voteCount = countVoteNumber
+        }
+        upvoteButton.setTitle(String(voteCount), for: UIControlState.normal)
+        self.upvoteButton.setImage(UIImage(named: "icon-upvote"), for: .normal)
     }
 }
 
