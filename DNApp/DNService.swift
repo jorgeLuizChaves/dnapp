@@ -27,7 +27,7 @@ struct DNService {
         case storyUpvote
         case commentReply(commentId: String)
         case comment(commentId: String)
-        case commentUpvote(commentId: String)
+        case commentUpvote
         
         var description: String {
             switch self {
@@ -40,7 +40,7 @@ struct DNService {
             case .storyReply(let id): return "/api/v2/stories/\(id)/reply"
             case .storyUpvote: return "/api/v2/upvotes"
             case .commentReply(let id): return "/api/v2/comments/\(id)/reply"
-            case .commentUpvote(let id): return "/api/v2/comments/\(id)/upvote"
+            case .commentUpvote: return "/api/v2/comment_upvotes"
             }
         }
     }
@@ -82,9 +82,9 @@ struct DNService {
         let urlString = "\(baseURL)\(ResourcePath.login.description)"
         
         let parameters = [
-        "grant_type": grantType,
-        "username": login,
-        "password": password
+            "grant_type": grantType,
+            "username": login,
+            "password": password
         ]
         
         Alamofire.request(urlString, method: .post, parameters: parameters).responseJSON { response in
@@ -96,6 +96,24 @@ struct DNService {
     static func upvoteStoryWithId(_ story: Story, userId: String, token: String, completion: @escaping (_ successful: JSON?) -> Void) {
         let urlString = baseURL + ResourcePath.storyUpvote.description
         upvoteWithUrlString(urlString, story: story,userId: userId, token: token, completion: completion)
+    }
+    
+    static func upvote(comment: Comment, userId: String, completion: @escaping (_ successful: JSON?)
+        -> Void) {
+        let urlString = getUrlStringWith(ResourcePath.commentUpvote.description)
+        let url = URL(string: urlString)!
+        let headers = getHttpHeaders()
+        
+        let parameters = [
+            "comment_upvotes" : [
+                "links" : ["comment" : comment.id, "user" : userId]
+            ]
+        ]
+        
+        Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
+            print(response.result)
+            completion(JSON(response.result.value ?? []))
+        }
     }
     
     static func me(byToken token: String, completionHandler: @escaping (JSON?) -> ()) {
@@ -113,10 +131,10 @@ struct DNService {
     
     private static func upvoteWithUrlString(_ urlString: String, story: Story, userId: String, token: String, completion: @escaping (_ successful: JSON?) -> Void) {
         let url = URL(string: urlString)!
-        let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(token)",
-            "Content-Type": "application/vnd.api+json"
-        ]
+//        let headers: HTTPHeaders = [
+//            "Authorization": "Bearer \(token)",
+//            "Content-Type": "application/vnd.api+json"
+//        ]
         
         let parameters = [
             "upvotes" : [
@@ -124,10 +142,22 @@ struct DNService {
             ]
         ]
                 
-        Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
-            print(response)
-//            let successful = response.response?.statusCode == 201
+        Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: getHttpHeaders()).responseJSON { response in
             completion(JSON(response.result.value ?? []))
         }
+    }
+    
+    private static func getUrlStringWith(_ resource: String) -> String {
+        return "\(DNService.baseURL)\(resource)"
+    }
+    
+    private static func getHttpHeaders() -> [String:String] {
+        let token = LocalStore.getToken() ?? ""
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)",
+            "Content-Type": "application/vnd.api+json"
+        ]
+        
+        return headers
     }
 }
