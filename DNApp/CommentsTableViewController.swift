@@ -43,10 +43,11 @@ LoginViewControllerDelegate{
         if let storyCell = cell as? StoryTableViewCell{
             storyCell.configureWithStory(story, isCommentEnable: false)
             storyCell.delegate = self
+            storyCell.selectionStyle = .none
             return storyCell
         }else {
             let commentCell = cell as! CommentsTableViewCell
-            if comments.count > 0 {
+            if isThereComments() {
                 let comment = comments[indexPath.row - 1]
                 commentCell.configureWithComment(comment)
                 commentCell.delegate = self
@@ -99,6 +100,10 @@ LoginViewControllerDelegate{
     }
     
     //MARK: private functions
+    private func isThereComments() -> Bool {
+        return comments.count > 0
+    }
+    
     private func loadComment(_ story: Story){
         self.view.showLoading()
         
