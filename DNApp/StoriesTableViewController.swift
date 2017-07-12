@@ -79,10 +79,7 @@ CommentsTableViewDelegate{
             performSegue(withIdentifier: webSegue, sender: indexPath)
             tableView.deselectRow(at: indexPath, animated: true)
         }else {
-            let alertController = UIAlertController(title: "Ooopss", message: "There's no link to access, sorry :(", preferredStyle: .alert)
-            let alertAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            alertController.addAction(alertAction)
-            present(alertController, animated: true, completion: nil)
+            showAlertViewNoLinkStory()
         }
 
     }
@@ -109,9 +106,14 @@ CommentsTableViewDelegate{
             let story = stories[indexPath.row]
             DNService.upvoteStoryWithId(story, userId: userId, token: token, completion: { (res) in
                     if let upvoteId = res?["upvotes"][0]["id"].string {
-                        LocalStore.addStoryUpvotes(upvoteId: upvoteId)
+                        story.addUpvote(upvoteId: upvoteId)
                         cell.upvoteButton.setImage(UIImage(named: "icon-upvote-active"), for: .normal)
-                        cell.upvoteButton.setTitle(String(story.voteCount + 1), for: .normal)
+                        cell.upvoteButton.setTitle(String(story.voteCount), for: .normal)
+                    }else {
+                        story.removeUpvote()
+                        cell.upvoteButton.setImage(UIImage(named: "icon-upvote"), for: .normal)
+                        cell.upvoteButton.setTitle(String(story.voteCount), for: .normal)
+                        
                     }
                 })
         }else {
@@ -188,7 +190,7 @@ CommentsTableViewDelegate{
         }
     }
     
-    func loadStories(_ section: String, page: Int) {
+    private func loadStories(_ section: String, page: Int) {
         
         layoutLoginValidation()
         
@@ -214,5 +216,12 @@ CommentsTableViewDelegate{
                 }
             }
         }
+    }
+    
+    private func showAlertViewNoLinkStory() {
+        let alertController = UIAlertController(title: "Ooopss", message: "There's no link to access, sorry :(", preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alertController.addAction(alertAction)
+        present(alertController, animated: true, completion: nil)
     }
 }

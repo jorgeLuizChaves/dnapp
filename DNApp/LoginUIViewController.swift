@@ -37,8 +37,10 @@ class LoginUIViewController: UIViewController, UITextFieldDelegate {
                     DNService.me(byToken: tokenString!, completionHandler: { jsonUser in
                             let userId = jsonUser?["id"].rawValue as! String
                             let upvotes = jsonUser?["links"]["upvotes"].rawValue as! [String]
+                            let commentsUpvotes = jsonUser?["links"]["comment_upvotes"].rawValue as! [String]
                             LocalStore.saveUserId(userId)
                             LocalStore.saveUpvotes(upvotes)
+                            LocalStore.saveCommentsUpvotes(commentsUpvotes)
                     })
                     self.delegate?.loginViewControllerDidLogin(self)
                     self.dismiss(animated: true, completion: nil)

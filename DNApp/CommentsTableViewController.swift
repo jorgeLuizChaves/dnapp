@@ -64,16 +64,25 @@ LoginViewControllerDelegate{
     }
     
     func commentTableViewCellDidTouchUpvote(_ cell: CommentsTableViewCell, sender: Any) {
-        print("comment upvote")
         if let _ = LocalStore.getToken(), let userId = LocalStore.getUserId() {
             let indexPath = tableView.indexPath(for: cell)
             if let index = indexPath {
                 let comment = comments[index.row - 1]
+                self.view.showLoading()
                 DNService.upvote(comment: comment, userId: userId, completion: { res in
-                    if let _ = res?["comment_upvotes"][0]["id"].string {
-                        cell.likeComment()
+                    if let upvoteId = res?["comment_upvotes"][0]["id"].string {
+                        comment.addVote(upvoteId: upvoteId)
+                        cell.upvoteComment(comment.voteCount)
+                        self.view.hideLoading()
                     }else{
-                        cell.unlikeComment()
+                        comment.removeVote()
+                        LocalStore.deleteCommentUpvotes()
+                        cell.unlikeComment(comment.voteCount)
+                        DNService.me(byToken: LocalStore.getToken()!) { res in
+                            let upvotes = res?["links"]["comment_upvotes"].rawValue as? [String]
+                            LocalStore.saveCommentsUpvotes(upvotes)
+                            self.view.hideLoading()
+                        }
                     }
                 })
             }
