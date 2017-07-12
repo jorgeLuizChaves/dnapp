@@ -11,21 +11,14 @@ import Spring
 
 class MenuViewController: UIViewController, UITextViewDelegate, LoginViewControllerDelegate {
     
-    weak var delegate: MenuViewControllerDelegate?
     @IBOutlet weak var loginLabel: UILabel!
     @IBOutlet weak var closeButton: UIButton!
-
-
     @IBOutlet weak var dialogView: DesignableView!
+    weak var delegate: MenuViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let _ = LocalStore.getToken() {
-            loginLabel.text = "Logout"
-        }else {
-            loginLabel.text = "Login"
-        }
+        loginLabel.text = isLogged() ? "Logout" : "Login"
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,10 +38,12 @@ class MenuViewController: UIViewController, UITextViewDelegate, LoginViewControl
     
     
     @IBAction func loginButtonDidTouch(_ sender: Any) {
-        if let _ = LocalStore.getToken() {
+        if isLogged() {
             LocalStore.deleteToken()
-            LocalStore.deleteUpvotes()
             LocalStore.deleteUserId()
+            LocalStore.deleteUpvotes()
+            LocalStore.deleteCommentUpvotes()
+            
             closeButtonDidTouch(sender)
             delegate?.menuViewControllerDidTouchLogout(self)
         }else {
@@ -78,6 +73,13 @@ class MenuViewController: UIViewController, UITextViewDelegate, LoginViewControl
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
+    }
+    
+    private func isLogged() -> Bool {
+        if LocalStore.getToken() != nil {
+            return true
+        }
+        return false
     }
 
 }

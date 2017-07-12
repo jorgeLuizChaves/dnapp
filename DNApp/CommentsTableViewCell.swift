@@ -47,7 +47,6 @@ class CommentsTableViewCell: UITableViewCell {
     
     func configureWithComment(_ comment: Comment) {        
         let body = comment.body
-        let bodyHTML = comment.bodyHTML
         let userJob = comment.profile.job
         let createdAt = comment.createdAt
         let voteCount = comment.voteCount
@@ -59,30 +58,20 @@ class CommentsTableViewCell: UITableViewCell {
         upvoteButton.setTitle(String(voteCount), for: UIControlState.normal)
         commentLabel.text = body
         
-        //TODO VALIDATE COMMENT WAS UPVOTED
-//        if(story.isUpvoted){
-//            self.upvoteButton.setImage(UIImage(named: "icon-upvote-active"), for: .normal)
-//        }else {
-//            self.upvoteButton.setImage(UIImage(named: "icon-upvote"), for: .normal)
-//        }
+        if(comment.isUpvoted){
+            self.upvoteButton.setImage(UIImage(named: "icon-upvote-active"), for: .normal)
+        }else {
+            self.upvoteButton.setImage(UIImage(named: "icon-upvote"), for: .normal)
+        }
     }
     
-    func likeComment() {
-        let countVoteNumber = Int((upvoteButton.titleLabel?.text)!) ?? 0
-        let voteCount = (countVoteNumber + 1)
-        upvoteButton.setTitle(String(voteCount), for: UIControlState.normal)
+    func upvoteComment(_ voteCount: Int) {
+        self.upvoteButton.setTitle(String(voteCount), for: UIControlState.normal)
         self.upvoteButton.setImage(UIImage(named: "icon-upvote-active"), for: .normal)
     }
     
-    func unlikeComment() {
-        let countVoteNumber = Int((upvoteButton.titleLabel?.text)!) ?? 0
-        var voteCount: Int
-        if(countVoteNumber > 0) {
-            voteCount = (countVoteNumber - 1)
-        }else{
-            voteCount = countVoteNumber
-        }
-        upvoteButton.setTitle(String(voteCount), for: UIControlState.normal)
+    func unlikeComment(_ voteCount: Int) {
+        self.upvoteButton.setTitle(String(voteCount), for: UIControlState.normal)
         self.upvoteButton.setImage(UIImage(named: "icon-upvote"), for: .normal)
     }
 }

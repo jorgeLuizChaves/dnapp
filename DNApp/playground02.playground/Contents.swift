@@ -67,4 +67,12 @@ stories = ["name" : "Jonh"]
 
 print(stories)
 
+let array1 = [1, 2, 3] //me old
+let array2 = [1, 2, 4] //me new
+
+let resultA = Set(array1).union(Set(array2))
+
+Set(resultA).symmetricDifference(Set(array2))
+
+
 
